@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Disquier CoLab, your partner in Innovation",
+  title: "Disquiet CoLab, your partner in Innovation",
   description: "Disquiet CoLab Official Website",
 };
 
