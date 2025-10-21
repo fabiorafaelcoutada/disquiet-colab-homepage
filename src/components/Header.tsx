@@ -5,10 +5,11 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 export default function Header() {
-  const [areasOfExpertiseOpen, setAreasOfExpertiseOpen] = useState(false);
-  const [caseStudiesOpen, setCaseStudiesOpen] = useState(false);
-  const [resourcesOpen, setResourcesOpen] = useState(false);
-  const [companyOpen, setCompanyOpen] = useState(false);
+  const [aboutUsOpen, setAboutUsOpen] = useState(false);
+  const [whatWeDoOpen, setWhatWeDoOpen] = useState(false);
+  const [eventsOpen, setEventsOpen] = useState(false);
+  const [blogOpen, setBlogOpen] = useState(false);
+  const [newsOpen, setNewsOpen] = useState(false);
 
   return (
     <header className="bg-white shadow-md">
@@ -25,25 +26,43 @@ export default function Header() {
                 priority
               />
             </Link>
-            <div className="relative" onMouseEnter={() => setAreasOfExpertiseOpen(true)} onMouseLeave={() => setAreasOfExpertiseOpen(false)}>
-              <button className="text-gray-600 hover:text-gray-900 px-3 py-2">Areas of Expertise</button>
-              {areasOfExpertiseOpen && (
+            <div className="relative" onMouseEnter={() => setAboutUsOpen(true)} onMouseLeave={() => setAboutUsOpen(false)}>
+              <button className="text-gray-600 hover:text-gray-900 px-3 py-2">About Us</button>
+              {aboutUsOpen && (
+                <div className="absolute z-10 w-48 bg-white rounded-md shadow-lg">
+                  <Link href="/about-us" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">About Us</Link>
+                  <Link href="/contact" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Contact</Link>
+                  <Link href="/team" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Team</Link>
+                </div>
+              )}
+            </div>
+            <div className="relative" onMouseEnter={() => setWhatWeDoOpen(true)} onMouseLeave={() => setWhatWeDoOpen(false)}>
+              <button className="text-gray-600 hover:text-gray-900 px-3 py-2">What We Do</button>
+              {whatWeDoOpen && (
                 <div className="absolute z-10 w-48 bg-white rounded-md shadow-lg">
                   {/* Dropdown content goes here */}
                 </div>
               )}
             </div>
-            <div className="relative" onMouseEnter={() => setCaseStudiesOpen(true)} onMouseLeave={() => setCaseStudiesOpen(false)}>
-              <button className="text-gray-600 hover:text-gray-900 px-3 py-2">Case Studies</button>
-              {caseStudiesOpen && (
+            <div className="relative" onMouseEnter={() => setEventsOpen(true)} onMouseLeave={() => setEventsOpen(false)}>
+              <button className="text-gray-600 hover:text-gray-900 px-3 py-2">Events</button>
+              {eventsOpen && (
                 <div className="absolute z-10 w-48 bg-white rounded-md shadow-lg">
                   {/* Dropdown content goes here */}
                 </div>
               )}
             </div>
-            <div className="relative" onMouseEnter={() => setResourcesOpen(true)} onMouseLeave={() => setResourcesOpen(false)}>
-              <button className="text-gray-600 hover:text-gray-900 px-3 py-2">Resources</button>
-              {resourcesOpen && (
+            <div className="relative" onMouseEnter={() => setBlogOpen(true)} onMouseLeave={() => setBlogOpen(false)}>
+              <button className="text-gray-600 hover:text-gray-900 px-3 py-2">Blog</button>
+              {blogOpen && (
+                <div className="absolute z-10 w-48 bg-white rounded-md shadow-lg">
+                  {/* Dropdown content goes here */}
+                </div>
+              )}
+            </div>
+            <div className="relative" onMouseEnter={() => setNewsOpen(true)} onMouseLeave={() => setNewsOpen(false)}>
+              <button className="text-gray-600 hover:text-gray-900 px-3 py-2">News</button>
+              {newsOpen && (
                 <div className="absolute z-10 w-48 bg-white rounded-md shadow-lg">
                   {/* Dropdown content goes here */}
                 </div>
@@ -59,19 +78,6 @@ export default function Header() {
               </svg>
             </a>
             <a href="https://github.com/disquiet-colab" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900 font-medium">GitHub</a>
-            <div className="relative" onMouseEnter={() => setCompanyOpen(true)} onMouseLeave={() => setCompanyOpen(false)}>
-              <button className="text-gray-600 hover:text-gray-900 font-medium">Company</button>
-              {companyOpen && (
-                <div className="absolute z-10 w-48 bg-white rounded-md shadow-lg right-0">
-                  <Link href="/about-us" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">About Us</Link>
-                  <Link href="/contact" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Contact</Link>
-                  <Link href="/team" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Team</Link>
-                  <Link href="/partners" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Partners</Link>
-                  <Link href="/careers" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Careers</Link>
-                  <Link href="/privacy-policy" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Privacy Policy</Link>
-                </div>
-              )}
-            </div>
           </div>
         </div>
       </nav>
