@@ -1,1 +1,0 @@
-This is the vision of our company.

@@ -1,1 +1,0 @@
-This is the mission of our company.

@@ -1,1 +1,0 @@
-This is the purpose of our company.
