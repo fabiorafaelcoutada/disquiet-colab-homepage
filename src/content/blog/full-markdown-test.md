@@ -40,10 +40,11 @@ This is a [link to my website](https://www.domain.com).
 > > — A nested quote
 
 ## Table
-| Column 1 | Column 2 (Center) | Column 3 (Right) |
-| :--- | :---: | ---: |
-| Cell 1 | Cell 2 | Cell 3 |
-| Cell 4 | Cell 5 | Cell 6 |
+
+| Column 1          | Column 2 (Center) | Column 3 (Right) |
+| :---------------- | :---------------: | ---------------: |
+| Cell 1            |      Cell 2       |           Cell 3 |
+| Cell 4            |      Cell 5       |           Cell 6 |
 
 ## Image
-![This is the alt text for a test image](./placeholder.jpg)
+![This is the alt text for a test image](/logo.png)
