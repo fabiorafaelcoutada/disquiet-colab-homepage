@@ -1,0 +1,34 @@
+/* We combine the 'flex-grow' and 'container' logic into one class */
+.pageContainer {
+    flex-grow: 1; /* For the sticky footer */
+    width: 100%;
+
+    /* These lines are from Tailwind's 'container' class */
+    max-width: 1280px; /* Default 'container' max-width, you can adjust */
+    margin-left: auto;
+    margin-right: auto;
+
+    /* These lines are from 'px-6 py-12' */
+    padding: 3rem 1.5rem;
+}
+
+/* This replaces all the 'grid' classes */
+.teamGrid {
+    display: grid;
+    grid-template-columns: 1fr; /* 'grid-cols-1' */
+    gap: 2rem; /* 'gap-8' */
+}
+
+/* This replaces 'md:grid-cols-2' */
+@media (min-width: 768px) {
+    .teamGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* This replaces 'lg:grid-cols-3' */
+@media (min-width: 1024px) {
+    .teamGrid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
