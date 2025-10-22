@@ -11,9 +11,11 @@ import rehypeStringify from 'rehype-stringify';
 
 const contentDirectory = path.join(process.cwd(), 'src', 'content');
 const blogContentDir = path.join(contentDirectory, 'blog');
+const teamContentDir = path.join(contentDirectory, 'team'); // <-- 1. ADD THIS LINE
 
 /**
  * Gets the content and metadata for a single .md file.
+ * (This function is unchanged)
  */
 export async function getMarkdownContent(filePath: string) {
     const fullPath = path.join(contentDirectory, `${filePath}.md`);
@@ -41,6 +43,7 @@ export async function getMarkdownContent(filePath: string) {
 
 /**
  * Gets sorted frontmatter for all blog posts.
+ * (This function is unchanged)
  */
 export function getAllPosts() {
     // Get all filenames in the /blog directory
@@ -72,4 +75,32 @@ export function getAllPosts() {
             return -1;
         }
     });
+}
+
+/**
+ * Gets frontmatter for all team members.
+ */
+export function getAllTeamMembers() {
+    const fileNames = fs.readdirSync(teamContentDir);
+
+    const allMembersData = fileNames.map((fileName) => {
+        // Get slug from filename (e.g., 'fabio')
+        const slug = fileName.replace(/\.md$/, '');
+
+        // Read the file
+        const fullPath = path.join(teamContentDir, fileName);
+        const fileContents = fs.readFileSync(fullPath, 'utf8');
+
+        // Parse frontmatter
+        const { data } = matter(fileContents);
+
+        // Return slug and frontmatter
+        return {
+            slug,
+            ...(data as { firstName: string; lastName: string; position: string; image: string }),
+        };
+    });
+
+    // Sort members by last name
+    return allMembersData.sort((a, b) => a.lastName.localeCompare(b.lastName));
 }
