@@ -1,0 +1,102 @@
+/* Styles ONLY for the single team member page */
+
+.pageContainer {
+    flex-grow: 1; /* Keep footer down */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    /* --- GREY SCHEME --- */
+    background-color: #f3f4f6; /* Light grey background */
+    padding: 1rem 1rem 3rem 1rem; /* Adjust padding as needed */
+}
+
+/* Specific styles for dark mode if needed */
+@media (prefers-color-scheme: dark) {
+    .pageContainer {
+        background-color: #1f2937; /* Darker grey background */
+    }
+}
+
+
+.contentWrapper {
+    max-width: 896px; /* max-w-4xl */
+    width: 100%;
+}
+
+.memberHeader {
+    display: flex;
+    flex-direction: column; /* Stack image and text on mobile */
+    align-items: center;
+    gap: 2rem; /* space-x-8 */
+    margin-bottom: 3rem; /* mb-12 */
+    padding: 2rem;
+    background-color: #ffffff; /* White card for header */
+    border-radius: 0.5rem; /* rounded-lg */
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); /* shadow-lg */
+}
+
+@media (prefers-color-scheme: dark) {
+    .memberHeader {
+        background-color: #374151; /* Dark grey card */
+    }
+}
+
+/* Apply tablet+ styles */
+@media (min-width: 768px) {
+    .pageContainer {
+        padding: 3rem 1rem;
+    }
+    .memberHeader {
+        flex-direction: row; /* Side-by-side layout on larger screens */
+        text-align: left;
+    }
+}
+
+.avatar {
+    position: relative;
+    width: 12rem; /* w-48 */
+    height: 12rem; /* h-48 */
+    border-radius: 9999px; /* rounded-full */
+    overflow: hidden;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); /* shadow-lg */
+    flex-shrink: 0; /* Prevent image from shrinking */
+}
+
+.memberName {
+    font-size: 2.25rem; /* text-4xl */
+    font-weight: 700; /* font-bold */
+    color: #111827; /* Tailwind gray-900 */
+}
+@media (prefers-color-scheme: dark) {
+    .memberName {
+        color: #f9fafb; /* Tailwind gray-50 */
+    }
+}
+
+
+.memberPosition {
+    font-size: 1.5rem; /* text-2xl */
+    color: #3b82f6; /* Tailwind blue-500 */
+    margin-top: 0.5rem; /* mt-2 */
+}
+@media (prefers-color-scheme: dark) {
+    .memberPosition {
+        color: #60a5fa; /* Tailwind blue-400 */
+    }
+}
+
+/* Styles for the main markdown content area */
+.resumeContent {
+    /* Inherit prose styles, but maybe add a background card */
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+    .resumeContent {
+        background-color: #374151; /* Dark grey card */
+    }
+}

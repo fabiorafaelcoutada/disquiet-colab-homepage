@@ -1,29 +1,26 @@
 import { getMarkdownContent } from '@/lib/markdown';
 import Image from 'next/image';
+import styles from './page.module.css'; // 1. Import the CSS Module
 
-// This tells TypeScript what kind of 'params' to expect
 type Props = {
     params: { slug: string }
 };
 
-// The component is async so we can 'await' our data
 export default async function TeamMemberPage({ params }: Props) {
-    // 1. Get the slug (e.g., "fabio") from the URL
     const { slug } = params;
-
-    // 2. Fetch the data for this specific member
-    //    This will read 'src/content/team/[slug].md'
     const { data, contentHtml } = await getMarkdownContent(`team/${slug}`);
 
     return (
-        // 'flex-grow' keeps the footer at the bottom
-        <div className="flex-grow flex flex-col items-center p-4 md:p-12">
-            <div className="max-w-4xl w-full">
+        // 2. Apply the main container style from the CSS module
+        <div className={styles.pageContainer}>
+            {/* 3. Apply the content wrapper style */}
+            <div className={styles.contentWrapper}>
 
                 {/* === MEMBER HEADER === */}
-                {/* We use the frontmatter 'data' here */}
-                <div className="flex flex-col md:flex-row items-center gap-8 mb-12">
-                    <div className="relative w-48 h-48 rounded-full overflow-hidden shadow-lg">
+                {/* 4. Apply header card styles */}
+                <div className={styles.memberHeader}>
+                    {/* 5. Apply avatar styles */}
+                    <div className={styles.avatar}>
                         <Image
                             src={data.image}
                             alt={`${data.firstName} ${data.lastName}`}
@@ -31,22 +28,28 @@ export default async function TeamMemberPage({ params }: Props) {
                             style={{ objectFit: 'cover' }}
                         />
                     </div>
+                    {/* Keep text alignment utilities if needed */}
                     <div className="text-center md:text-left">
-                        <h1 className="text-4xl font-bold dark:text-white">
+                        {/* 6. Apply name styles */}
+                        <h1 className={styles.memberName}>
                             {data.firstName} {data.lastName}
                         </h1>
-                        <p className="text-2xl text-blue-500 dark:text-blue-400 mt-2">
+                        {/* 7. Apply position styles */}
+                        <p className={styles.memberPosition}>
                             {data.position}
                         </p>
                     </div>
                 </div>
 
                 {/* === MEMBER'S RESUME CONTENT === */}
-                {/* We use 'prose' to style the markdown body */}
-                <div
-                    className="prose prose-lg dark:prose-invert max-w-none"
-                    dangerouslySetInnerHTML={{ __html: contentHtml }}
-                />
+                {/* 8. Wrap the prose content in the styled container */}
+                <div className={styles.resumeContentContainer}>
+                    {/* Keep prose classes for markdown styling */}
+                    <div
+                        className="prose prose-lg dark:prose-invert max-w-none"
+                        dangerouslySetInnerHTML={{ __html: contentHtml }}
+                    />
+                </div>
 
             </div>
         </div>
