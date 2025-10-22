@@ -1,14 +1,9 @@
 // This file will store all our navigation data
+import { NavItem } from './navigation-types'; // <-- 1. Import the types
 
 export type NavLink = {
     label: string;
     href: string;
-};
-
-export type NavItem = {
-    label: string;
-    href?: string; // Use this if it's a direct link
-    children?: NavLink[]; // Use this if it's a dropdown
 };
 
 /**
@@ -31,4 +26,21 @@ export const mainNavItems: NavItem[] = [
     { label: 'Events', href: '/events' },
     { label: 'Blog', href: '/blog' },
     { label: 'News', href: '/news' },
+];
+/**
+ * These are the links for the right side of the desktop header
+ * and the bottom of the mobile menu.
+ */
+export const rightNavItems: NavItem[] = [
+    {
+        label: 'LinkedIn',
+        href: 'https://www.linkedin.com/company/disquietcolab',
+        isExternal: true
+    },
+    {
+        label: 'GitHub',
+        href: 'https://github.com/disquiet-colab',
+        isExternal: true
+    },
+    { label: 'Contact', href: '/contact' },
 ];
