@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';
+import remarkGfm from 'remark-gfm';
 import remarkParse from 'remark-parse';
 import remarkMath from 'remark-math';
 import remarkRehype from 'remark-rehype';
@@ -23,6 +24,7 @@ export async function getMarkdownContent(filePath: string) {
     // Process markdown with math plugins
     const processedContent = await remark()
         .use(remarkParse)
+        .use(remarkGfm)
         .use(remarkMath)
         .use(remarkRehype)
         .use(rehypeKatex)
