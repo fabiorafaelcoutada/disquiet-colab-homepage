@@ -1,7 +1,7 @@
 // This page component will receive 'params' which contains the slug (e.g., "fabio")
 export default function TeamMemberPage({ params }: { params: { slug: string } }) {
     return (
-        <main className="flex min-h-screen flex-col items-center justify-center bg-gray-900 text-white">
+        <div className="flex flex-col items-center p-24 flex-grow">
             <div className="text-center">
                 <h1 className="text-5xl font-bold">
                     Profile Page
@@ -10,6 +10,6 @@ export default function TeamMemberPage({ params }: { params: { slug: string } })
                     This is the page for: <span className="font-bold text-cyan-400">{params.slug}</span>
                 </p>
             </div>
-        </main>
+        </div>
     );
 }
