@@ -1,3 +1,16 @@
+/** The final list of skills (e.g., ['C', 'C++']) */
+export type SkillList = string[];
+
+/** * A recursive type allowing nested objects for categories.
+ * Keys are category names (e.g., 'programmingLanguages', 'lowLevel').
+ * Values can be either a SkillList or another nested SkillCategory.
+ */
+export type SkillCategory = {
+    [key: string]: SkillList | SkillCategory;
+};
+
+// --- Existing Types ---
+
 export type TeamMemberContact = {
     email?: string;
     phone?: string;
@@ -7,21 +20,11 @@ export type TeamMemberLinks = {
     linkedin?: string;
     github?: string;
     portfolio?: string;
-    twitter?: string; // Add others as needed
+    twitter?: string;
 };
 
-// Define specific skill categories you plan to use
-export type TeamMemberSkills = {
-    programming?: string[];
-    buildSystems?: string[];
-    frameworks?: string[];
-    databases?: string[];
-    cloud?: string[];
-    testing?: string[];
-    devops?: string[];
-    other?: string[];
-    // Add more categories as needed
-};
+// 1. TeamMemberSkills is now replaced by SkillCategory for flexibility
+// export type TeamMemberSkills = { ... }; // <-- REMOVED/REPLACED
 
 export type TeamMemberExperience = {
     role: string;
@@ -38,12 +41,15 @@ export type TeamMemberFrontmatter = {
     lastName: string;
     position: string;
     image: string;
-    dateOfBirth?: string; // Optional field
-    contact?: TeamMemberContact; // Optional object
-    links?: TeamMemberLinks; // Optional object
-    skills?: TeamMemberSkills; // Optional object
-    experiences?: TeamMemberExperience[]; // Optional array
-    achievements?: string[]; // Optional array
-    hobbies?: string[]; // <-- Add this
-    interests?: string[]; // <-- Add this
+    dateOfBirth?: string;
+    contact?: TeamMemberContact;
+    links?: TeamMemberLinks;
+
+    // 2. Updated to use the recursive type
+    skills?: SkillCategory;
+
+    experiences?: TeamMemberExperience[];
+    achievements?: string[];
+    hobbies?: string[];
+    interests?: string[];
 };

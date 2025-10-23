@@ -2,34 +2,77 @@ import { getMarkdownContent } from '@/lib/markdown';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './page.module.css';
-import { TeamMemberFrontmatter, TeamMemberSkills } from '@/types/team';
+import { TeamMemberFrontmatter, SkillCategory, SkillList } from '@/types/team';
 
 type Props = {
     params: { slug: string }
 };
 
-// Helper components (SkillsCategory, getSkillCategories) are unchanged
-function SkillsCategory({ title, skills }: { title: string, skills?: string[] }) {
-    if (!skills || skills.length === 0) return null;
-    return (
-        <div>
-            <h3 className="text-xl font-semibold mb-2 capitalize">{title.replace(/([A-Z])/g, ' $1').trim()}</h3>
-            <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300">
-                {skills.map((skill) => <li key={skill}>{skill}</li>)}
+// --- NEW/REFACTORED HELPER COMPONENT: Handles Recursion ---
+// This component checks if the input data is a final list or another nested object.
+function RecursiveSkillsRenderer({ data }: { data: SkillCategory | SkillList }) {
+    if (Array.isArray(data)) {
+        // Case 1: It's the final list (SkillList: ['C', 'C++']) - RENDER VERTICAL LIST
+        return (
+            <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300 ml-4">
+                {data.map((skill) => (
+                    <li key={skill} className="text-sm">{skill}</li>
+                ))}
             </ul>
-        </div>
+        );
+    }
+
+    // Case 2: It's a nested object (SkillCategory) - Recurse
+    // We are deliberately NOT adding a surrounding div here.
+    return (
+        <>
+            {Object.entries(data).map(([key, value]) => {
+                if (!value || (Array.isArray(value) && value.length === 0)) return null;
+
+                // Check if the current object is the *top-level* skill category
+                // If the value is a SkillList (string[]), then this key (e.g., 'lowLevel') is a sub-category.
+                const isSubCategory = !Array.isArray(value);
+
+                return (
+                    // We apply spacing and border here for visual separation
+                    <div
+                        key={key}
+                        className={`
+                            p-4 
+                            border dark:border-gray-700 rounded-lg 
+                            break-inside-avoid-column 
+                            ${isSubCategory ? 'space-y-2' : ''} 
+                            ${isSubCategory ? 'col-span-1 md:col-span-1' : 'col-span-full'}
+                        `}
+                    >
+                        {/* The heading for the category (e.g., 'Programming Languages') */}
+                        <h3 className="text-xl font-semibold mb-2 capitalize text-gray-900 dark:text-white">
+                            {key.replace(/([A-Z])/g, ' $1').trim()}
+                        </h3>
+
+                        {/* Recurse: Call the same component with the nested data */}
+                        {/* We use a slight left padding for nesting visibility */}
+                        <div className="pl-0">
+                            <RecursiveSkillsRenderer data={value} />
+                        </div>
+                    </div>
+                );
+            })}
+        </>
     );
 }
-function getSkillCategories(skills: TeamMemberSkills | undefined): [string, string[] | undefined][] {
-    if (!skills) return [];
-    return Object.entries(skills).filter(([, list]) => list && list.length > 0);
+
+// Check if skills exist at all (helper logic)
+function hasSkills(skills: SkillCategory | undefined): boolean {
+    return skills ? Object.keys(skills).length > 0 : false;
 }
 
 
 export default async function TeamMemberPage({ params }: Props) {
     const { slug } = params;
     const { data, contentHtml } = await getMarkdownContent(`team/${slug}`) as { data: TeamMemberFrontmatter, contentHtml: string };
-    const skillCategories = getSkillCategories(data.skills);
+
+    const hasAnySkills = hasSkills(data.skills);
 
     return (
         <div className={styles.pageContainer}>
@@ -37,7 +80,6 @@ export default async function TeamMemberPage({ params }: Props) {
 
                 {/* === MEMBER HEADER (Unchanged) === */}
                 <div className={styles.memberHeader}>
-                    {/* ... Avatar, Name, Position, Contact, Links ... */}
                     <div className={styles.avatar}>
                         <Image src={data.image} alt={`${data.firstName} ${data.lastName}`} fill style={{ objectFit: 'cover' }}/>
                     </div>
@@ -59,7 +101,7 @@ export default async function TeamMemberPage({ params }: Props) {
                 {/* === STRUCTURED RESUME CONTENT === */}
                 <div className={`${styles.resumeContentContainer} space-y-10`}>
 
-                    {/* --- Moved "About Me" (contentHtml) Section HERE --- */}
+                    {/* --- About Me (Unchanged) --- */}
                     {contentHtml && contentHtml.trim() !== '' && (
                         <section>
                             <h2 className="text-3xl font-bold border-b pb-2 mb-6 dark:text-white">About Me</h2>
@@ -69,22 +111,21 @@ export default async function TeamMemberPage({ params }: Props) {
                             />
                         </section>
                     )}
-                    {/* --------------------------------------------------- */}
 
-
-                    {/* --- Skills Section --- */}
-                    {skillCategories.length > 0 && (
+                    {/* --- Skills Section (Modified Grid for Horizontal Categories) --- */}
+                    {hasAnySkills && data.skills && (
                         <section>
                             <h2 className="text-3xl font-bold border-b pb-2 mb-6 dark:text-white">Skills</h2>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-6">
-                                {skillCategories.map(([category, list]) => (
-                                    <SkillsCategory key={category} title={category} skills={list} />
-                                ))}
+
+                            {/* NEW: Use flex-wrap instead of grid for simpler horizontal flow */}
+                            <div className="flex flex-wrap gap-4">
+                                {/* We pass data.skills to start the recursion */}
+                                <RecursiveSkillsRenderer data={data.skills} />
                             </div>
                         </section>
                     )}
 
-                    {/* --- Professional Experience Section --- */}
+                    {/* --- Professional Experience Section (Unchanged) --- */}
                     {data.experiences && data.experiences.length > 0 && (
                         <section>
                             <h2 className="text-3xl font-bold border-b pb-2 mb-6 dark:text-white">Experience</h2>
@@ -101,7 +142,7 @@ export default async function TeamMemberPage({ params }: Props) {
                         </section>
                     )}
 
-                    {/* --- Achievements Section --- */}
+                    {/* --- Achievements Section (Unchanged) --- */}
                     {data.achievements && data.achievements.length > 0 && (
                         <section>
                             <h2 className="text-3xl font-bold border-b pb-2 mb-6 dark:text-white">Achievements</h2>
@@ -111,7 +152,7 @@ export default async function TeamMemberPage({ params }: Props) {
                         </section>
                     )}
 
-                    {/* --- Hobbies Section --- */}
+                    {/* --- Hobbies & Interests Sections (Unchanged) --- */}
                     {data.hobbies && data.hobbies.length > 0 && (
                         <section>
                             <h2 className="text-3xl font-bold border-b pb-2 mb-6 dark:text-white">Hobbies</h2>
@@ -120,8 +161,6 @@ export default async function TeamMemberPage({ params }: Props) {
                             </ul>
                         </section>
                     )}
-
-                    {/* --- Interests Section --- */}
                     {data.interests && data.interests.length > 0 && (
                         <section>
                             <h2 className="text-3xl font-bold border-b pb-2 mb-6 dark:text-white">Interests</h2>
