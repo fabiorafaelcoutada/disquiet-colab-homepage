@@ -1,7 +1,7 @@
 // --- NEW: Acronym List (Unchanged) ---
 export const ACADEMIC_ACRONYMS = [
     'fpga', 'rtos', 'hdl', 'fpga', 'ai/ml', 'risc-v', 'devops', 'arm-cortex-a', 'arm-cortex-m', 'tsn',
-    'i2c', 'spi', 'uart', 'mqtt', 'pcie', 'plc', 'bsp', 'ci/cd', 'pcb'
+    'i2c', 'spi', 'uart', 'mqtt', 'pcie', 'plc', 'bsp', 'ci/cd', 'pcb', 'containerization/virtualization'
 ];
 
 /** The final list of skills (e.g., ['C', 'C++']) */
