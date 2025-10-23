@@ -3,7 +3,7 @@
 "use client"; // This component MUST be a client component
 
 import React, { useState, useEffect } from 'react';
-import { Page, Text, View, Document, Link as PdfLink } from '@react-pdf/renderer';
+import { Page, Text, View, Document, Link as PdfLink, Image as PdfImage } from '@react-pdf/renderer';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { TeamMemberFrontmatter, ACADEMIC_ACRONYMS, SkillCategory, SkillList } from '@/types/team';
 import { styles } from './pdfstyles'; // Import your styles
@@ -23,20 +23,27 @@ const MyPDFDocument = ({ data }: { data: TeamMemberFrontmatter }) => (
         <Page size="A4" style={styles.page}>
             {/* Header Section */}
             <View style={styles.header}>
-                <Text style={styles.memberName}>{data.firstName} {data.lastName}</Text>
-                <Text style={styles.memberPosition}>{data.position}</Text>
-                {data.contact?.email && <PdfLink style={styles.link} src={`mailto:${data.contact.email}`}>{data.contact.email}</PdfLink>}
+                {/* ADD THE PDFIMAGE COMPONENT */}
+                <PdfImage
+                    style={styles.avatar}
+                    src={data.image}
+                />
+                <View style={styles.headerText}>
+                    <Text style={styles.memberName}>{data.firstName} {data.lastName}</Text>
+                    <Text style={styles.memberPosition}>{data.position}</Text>
+                    {data.contact?.email && <PdfLink style={styles.link} src={`mailto:${data.contact.email}`}>{data.contact.email}</PdfLink>}
 
-                {/* 4. ADDED tel: LINK FOR PHONE */}
-                {data.contact?.phone && (
-                    <PdfLink style={styles.link} src={`tel:${data.contact.phone.replace(/[\s\(\)-]/g, '')}`}>
-                        {data.contact.phone}
-                    </PdfLink>
-                )}
+                    {/* 4. ADDED tel: LINK FOR PHONE */}
+                    {data.contact?.phone && (
+                        <PdfLink style={styles.link} src={`tel:${data.contact.phone.replace(/[\s\(\)-]/g, '')}`}>
+                            {data.contact.phone}
+                        </PdfLink>
+                    )}
 
-                {data.links?.linkedin && <PdfLink style={styles.link} src={data.links.linkedin}>LinkedIn</PdfLink>}
-                {data.links?.github && <PdfLink style={styles.link} src={data.links.github}>GitHub</PdfLink>}
-                {data.links?.portfolio && <PdfLink style={styles.link} src={data.links.portfolio}>Portfolio</PdfLink>}
+                    {data.links?.linkedin && <PdfLink style={styles.link} src={data.links.linkedin}>LinkedIn</PdfLink>}
+                    {data.links?.github && <PdfLink style={styles.link} src={data.links.github}>GitHub</PdfLink>}
+                    {data.links?.portfolio && <PdfLink style={styles.link} src={data.links.portfolio}>Portfolio</PdfLink>}
+                </View>
             </View>
 
             {/* --- About Me Section --- */}

@@ -21,19 +21,33 @@ export const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#ccc',
         paddingBottom: 10,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    avatar: {
+        width: 80,
+        height: 80,
+        borderRadius: 40, // Makes it a circle
+        marginRight: 20,
+    },
+    headerText: {
+        flex: 1, // Allows text to wrap
     },
     memberName: {
         fontSize: 24,
+        textAlign: 'center',
         fontWeight: 'bold',
         marginBottom: 4,
     },
     memberPosition: {
         fontSize: 14,
+        textAlign: 'center',
         color: '#555',
         marginBottom: 8,
     },
     link: {
         fontSize: 10,
+        textAlign: 'center',
         color: 'blue',
         textDecoration: 'underline',
         marginBottom: 2,
