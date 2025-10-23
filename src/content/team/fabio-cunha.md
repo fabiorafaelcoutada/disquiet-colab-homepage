@@ -74,21 +74,21 @@ skills:
         - RV64IMAC E51
         - RV64GC U54
         - MicroBlaze V
+  containerization & virtualization:
+      - Docker
+      - Podman
+      - Kubernetes
+      - QEMU
+      - VirtualBox
+      - KVM
+      - PANDA
   buildSystems:
     - Make
     - CMake
     - Ninja
     - Meson
     - Bazel
-  containerization:
-    - Docker
-    - Podman
-    - Kubernetes
-  virtualization:
-    - QEMU
-    - VirtualBox
-    - KVM
-    - PANDA
+
   electronicsSimulation:
     - LTspice
     - PSIM
