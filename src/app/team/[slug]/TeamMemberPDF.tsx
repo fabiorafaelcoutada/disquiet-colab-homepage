@@ -5,7 +5,7 @@
 import React, { useState, useEffect } from 'react';
 import { Page, Text, View, Document, Link as PdfLink } from '@react-pdf/renderer';
 import { PDFDownloadLink } from '@react-pdf/renderer';
-import { TeamMemberFrontmatter, ACADEMIC_ACRONYMS } from '@/types/team';
+import { TeamMemberFrontmatter, ACADEMIC_ACRONYMS, SkillCategory, SkillList } from '@/types/team';
 import { styles } from './pdfstyles'; // Import your styles
 
 function formatKeyTitle(key: string): string {
@@ -117,7 +117,7 @@ const MyPDFDocument = ({ data }: { data: TeamMemberFrontmatter }) => (
 );
 
 // 3. UPDATE THE RENDERER TO USE THE HELPER FUNCTION
-const PdfSkillRenderer = ({ title, data }: { title: string, data: any }) => {
+const PdfSkillRenderer = ({ title, data }: { title: string, data: SkillCategory | SkillList }) => {
     if (Array.isArray(data)) {
         return (
             <View style={styles.skillCategory}>
