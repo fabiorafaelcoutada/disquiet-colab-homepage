@@ -22,6 +22,7 @@ export type TeamMemberContact = {
 export type TeamMemberLinks = {
     linkedin?: string;
     github?: string;
+    gitlab?: string;
     portfolio?: string;
     twitter?: string;
 };
