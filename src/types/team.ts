@@ -44,6 +44,7 @@ export type TeamMemberFrontmatter = {
     lastName: string;
     position: string;
     image: string;
+    aboutMe?: string;
     dateOfBirth?: string;
     contact?: TeamMemberContact;
     links?: TeamMemberLinks;
