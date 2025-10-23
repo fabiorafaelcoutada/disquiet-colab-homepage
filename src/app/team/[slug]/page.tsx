@@ -74,6 +74,27 @@ export default async function TeamMemberPage({ params }: Props) {
         <div className={styles.pageContainer}>
             <div className={styles.contentWrapper}>
 
+                {/* === MEMBER HEADER (Unchanged) === */}
+                <div className={styles.memberHeader}>
+                    <div className={styles.avatar}>
+                        <Image src={data.image} alt={`${data.firstName} ${data.lastName}`} fill style={{ objectFit: 'cover' }}/>
+                    </div>
+                    <div>
+                        <h1 className={styles.memberName}>{data.firstName} {data.lastName}</h1>
+                        <p className={styles.memberPosition}>{data.position}</p>
+                        <div className="mt-4 space-y-1 text-sm">
+                            {data.contact?.email && <p><Link href={`mailto:${data.contact.email}`} className="text-blue-500 hover:underline">{data.contact.email}</Link></p>}
+                            {data.contact?.phone && <p>{data.contact.phone}</p>}
+                            <div className="flex space-x-4 mt-2">
+                                {data.links?.linkedin && <Link href={data.links.linkedin} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">LinkedIn</Link>}
+                                {data.links?.github && <Link href={data.links.github} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">GitHub</Link>}
+                                {data.links?.gitlab && <Link href={data.links.gitlab} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">GitLab</Link>}
+                                {data.links?.portfolio && <Link href={data.links.portfolio} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Portfolio</Link>}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 {/* --- About Me (Unchanged) --- */}
                 {contentHtml && contentHtml.trim() !== '' && (
                     <section>
