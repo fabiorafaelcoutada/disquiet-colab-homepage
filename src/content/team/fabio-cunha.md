@@ -112,16 +112,19 @@ experiences:
   - role: "Lead Developer & Founder"
     company: "Disquiet CoLab"
     period: "January 2023 - Present"
-    description: "Leading the technical development and strategic vision for innovative web solutions. Specializing in Next.js, TypeScript, and modern front-end architectures."
+    description: "Leading the technical development and strategic vision for innovative Embedded Systems projects."
     location: "Braga, Portugal"
   - role: "Embedded System Engineer"
-    company: "KCS IT"
+    company: "KCS IT (EFACEC)"
     period: "January 2025 - Present"
-    description: "Developed and maintained web applications using React and Node.js. Contributed to migrating legacy systems to modern cloud infrastructure."
+    description:
+      - "Using Yocto to create a custom Linux distribution for i.MX 8M Plus SoC."
+      - "Development of Linux Device Driver to implement Inter-Process Communication between the Linux Kernel, running on Arm Cortex-A53, and FreeRTOS, running on Arm Cortex-M7"
+      - "Development of a Linux Device Driver to implement Communication with a memory IC, using SPI protocol"
     location: "Porto, Portugal"
   - role: "Embedded Systems Research Engineer"
-    company: "KCS IT"
-    period: "January 2025 - Present"
+    company: "Vortex CoLab"
+    period: "June 2023 - June 2024"
     description: 
      - "Used Buildroot and Yocto to create custom Linux distributions for a RISC‑V SoC for Microchip’s Icicle Kit."
      - "Developed a user space application in C and C++ to control a matrix processor, responsible for running Machine Learning algorithms, from all the most popular frameworks, like TensorFlow, PyTorch, and ONNX."
@@ -170,10 +173,10 @@ experiences:
       - "The project was developed in C and C++ and was responsible for the communication between the door handles and the ADAS cameras with the vehicle’s main computer."
       - "The firmware was using a bare‑metal approach, the microprocessor was a Cortex‑M4, and the HAL used IIC, UART, CAN bus, and LIN protocol."
     location: "Pontevedra, Spain"
+
 # 4. Achievements (Simple List)
 achievements:
   - "Successfully launched the Disquiet CoLab official website."
-
 # 5. Hobbies and Interests (Now in Frontmatter)
 hobbies:
   - Scuba Diving 🤿
