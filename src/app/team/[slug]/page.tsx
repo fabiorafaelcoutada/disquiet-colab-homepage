@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import styles from './page.module.css';
 import { TeamMemberFrontmatter, SkillCategory, SkillList, ACADEMIC_ACRONYMS } from '@/types/team';
+import TeamMemberPDFDownloader from './TeamMemberPDF'; // PDF downloader import
 
 type Props = {
     params: { slug: string }
@@ -66,14 +67,16 @@ function hasSkills(skills: SkillCategory | undefined): boolean {
 
 export default async function TeamMemberPage({ params }: Props) {
     const { slug } = params;
-    const { data, contentHtml } = await getMarkdownContent(`team/${slug}`) as { data: TeamMemberFrontmatter, contentHtml: string };
+    // We no longer need contentHtml, but getMarkdownContent still provides it
+    const { data } = await getMarkdownContent(`team/${slug}`) as { data: TeamMemberFrontmatter, contentHtml: string };
 
     const hasAnySkills = hasSkills(data.skills);
 
     return (
         <div className={styles.pageContainer}>
             <div className={styles.contentWrapper}>
-                {/* === MEMBER HEADER (Unchanged) === */}
+
+                {/* === MEMBER HEADER (Correctly uses .memberHeader) === */}
                 <div className={styles.memberHeader}>
                     <div className={styles.avatar}>
                         <Image src={data.image} alt={`${data.firstName} ${data.lastName}`} fill style={{ objectFit: 'cover' }}/>
@@ -83,7 +86,7 @@ export default async function TeamMemberPage({ params }: Props) {
                         <p className={styles.memberPosition}>{data.position}</p>
                         <div className="mt-4 space-y-1 text-sm">
                             {data.contact?.email && <p><Link href={`mailto:${data.contact.email}`} className="text-blue-500 hover:underline">{data.contact.email}</Link></p>}
-                            {data.contact?.phone && <p>{data.contact.phone}</p>}
+                            {data.contact?.phone && (<p><a href={`tel:${data.contact.phone}`} className="text-blue-500 hover:underline">{data.contact.phone}</a></p>)}
                             <div className="flex space-x-4 mt-2">
                                 {data.links?.linkedin && <Link href={data.links.linkedin} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">LinkedIn</Link>}
                                 {data.links?.github && <Link href={data.links.github} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">GitHub</Link>}
@@ -91,25 +94,33 @@ export default async function TeamMemberPage({ params }: Props) {
                                 {data.links?.portfolio && <Link href={data.links.portfolio} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Portfolio</Link>}
                             </div>
                         </div>
+
+                        {/* --- PDF Download Button --- */}
+                        <div className="mt-6">
+                            <TeamMemberPDFDownloader data={data} slug={slug} />
+                        </div>
                     </div>
                 </div>
 
-                {/* --- About Me (Unchanged) --- */}
-                {contentHtml && contentHtml.trim() !== '' && (
-                    <div className={styles.memberHeader}>
+                {/* --- About Me (Refactored to use data.aboutMe and .contentSection) --- */}
+                {data.aboutMe && data.aboutMe.trim() !== '' && (
+                    <div className={styles.contentSection}>
                         <section>
                             <h2 className="text-3xl font-bold border-b pb-2 mb-6 dark:text-white">About Me</h2>
                             <div
                                 className="prose dark:prose-invert max-w-none"
-                                dangerouslySetInnerHTML={{ __html: contentHtml }}
-                            />
+                            >
+                                {data.aboutMe.trim().split('\n\n').map((paragraph, index) => (
+                                    <p key={index}>{paragraph}</p>
+                                ))}
+                            </div>
                         </section>
                     </div>
                 )}
 
-                {/* --- Skills Section (Unchanged) --- */}
+                {/* --- Skills Section (Using .contentSection) --- */}
                 {hasAnySkills && data.skills && (
-                    <div className={styles.memberHeader}>
+                    <div className={styles.contentSection}>
                         <section>
                             <h2 className="text-3xl font-bold border-b pb-2 mb-6 dark:text-white">Skills</h2>
                             <div className="flex flex-wrap gap-4">
@@ -119,17 +130,15 @@ export default async function TeamMemberPage({ params }: Props) {
                     </div>
                 )}
 
-                {/* --- Professional Experience Section (FIXED LOGIC) --- */}
+                {/* --- Professional Experience Section (Using .contentSection) --- */}
                 {data.experiences && data.experiences.length > 0 && (
-                    <div className={styles.memberHeader}>
+                    <div className={styles.contentSection}>
                         <section>
                             <h2 className="text-3xl font-bold border-b pb-2 mb-6 dark:text-white">Experience</h2>
                             <div className="space-y-8">
                                 {data.experiences.map((exp, index) => {
-                                    // FIX: Ensure description is always an array before mapping
                                     const descriptionList = Array.isArray(exp.description)
                                         ? exp.description
-                                        // If it's a string (from old markdown format), put it in an array
                                         : typeof exp.description === 'string'
                                             ? [exp.description]
                                             : [];
@@ -140,7 +149,6 @@ export default async function TeamMemberPage({ params }: Props) {
                                             <p className="font-medium text-gray-800 dark:text-gray-200">{exp.company} {exp.location && <span className="text-gray-500 dark:text-gray-400">({exp.location})</span>}</p>
                                             <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">{exp.period}</p>
 
-                                            {/* Renders the list */}
                                             {descriptionList.length > 0 && (
                                                 <ul className="list-disc ml-5 text-gray-700 dark:text-gray-300 space-y-1">
                                                     {descriptionList.map((item, i) => (
@@ -156,9 +164,9 @@ export default async function TeamMemberPage({ params }: Props) {
                     </div>
                 )}
 
-                {/* --- Achievements Section (Unchanged) --- */}
+                {/* --- Achievements Section (Using .contentSection) --- */}
                 {data.achievements && data.achievements.length > 0 && (
-                    <div className={styles.memberHeader}>
+                    <div className={styles.contentSection}>
                         <section>
                             <h2 className="text-3xl font-bold border-b pb-2 mb-6 dark:text-white">Achievements</h2>
                             <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
@@ -168,9 +176,9 @@ export default async function TeamMemberPage({ params }: Props) {
                     </div>
                 )}
 
-                {/* --- Hobbies & Interests Sections (Unchanged) --- */}
+                {/* --- Hobbies Section (Using .contentSection) --- */}
                 {data.hobbies && data.hobbies.length > 0 && (
-                    <div className={styles.memberHeader}>
+                    <div className={styles.contentSection}>
                         <section>
                             <h2 className="text-3xl font-bold border-b pb-2 mb-6 dark:text-white">Hobbies</h2>
                             <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
@@ -179,8 +187,10 @@ export default async function TeamMemberPage({ params }: Props) {
                         </section>
                     </div>
                 )}
+
+                {/* --- Interests Sections (Using .contentSection) --- */}
                 {data.interests && data.interests.length > 0 && (
-                    <div className={styles.memberHeader}>
+                    <div className={styles.contentSection}>
                         <section>
                             <h2 className="text-3xl font-bold border-b pb-2 mb-6 dark:text-white">Interests</h2>
                             <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
