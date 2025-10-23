@@ -8,12 +8,11 @@ image: "/images/team/fabio.jpg"
 dateOfBirth: "1990-12-21" # Optional
 contact:
   email: "fabiorafaelcoutada@disquiet-colab.com"
-  # phone: "+351 123 456 789"
+  phone: "+351 937 991 354"
 links:
   linkedin: "https://www.linkedin.com/in/fabiorafaelcoutada/" # Use your actual link
   github: "https://github.com/fabiorafaelcoutada"
   gitlab: "https://gitlab.com/fabiorafaelcoutada"
-  # portfolio: "https://yourportfolio.com"
 
 # 2. Skills (Categorized)
 skills:
@@ -30,18 +29,17 @@ skills:
     - TCL
     - C#
     - TypeScript
-  operatingSystems:
-    embeddedLinux:
-      - Linux Kernel
-      - Yocto
-      - Buildroot
-      - U-Boot
-      - Device Drivers
-      - IPC
-    RTOS:
-      - FreeRTOS
-      - Zephyr
-      - PikeOS
+  embeddedLinux:
+    - Linux Kernel
+    - Yocto
+    - Buildroot
+    - U-Boot
+    - Device Drivers
+    - IPC
+  RTOS:
+    - FreeRTOS
+    - Zephyr
+    - PikeOS
   Interfaces & Protocols:
     Basic:
       - SPI
@@ -58,22 +56,24 @@ skills:
       - Modbus
       - CAN
       - LIN
-  arm-cortex-a:
-    - Zynq UltraScale+ (Cortex-A53)
-    - i.MX 8M Plus (Cortex-A53)
-    - STM32MP2 (Cortex-A35)
-    - Zynq 7000 (Cortex-A9)
-  arm-cortex-m:
-    - NUCLEO-F746ZG (Cortex-M7)
-    - NUCLEO-F446RE (Cortex-M4)
-    - nRF52840 (Cortex-M4)
-    - nRF5340 (Cortex-M33)
-    - LPCXpresso55S69 (Cortex-M33)
-    - STM32MP2 (Cortex-M33)
-  risc-v:
-    - RV64IMAC E51
-    - RV64GC U54
-    - MicroBlaze V
+
+  processors:
+    arm-cortex-a:
+        - Zynq UltraScale+ (Cortex-A53)
+        - i.MX 8M Plus (Cortex-A53)
+        - STM32MP2 (Cortex-A35)
+        - Zynq 7000 (Cortex-A9)
+    arm-cortex-m:
+        - NUCLEO-F746ZG (Cortex-M7)
+        - NUCLEO-F446RE (Cortex-M4)
+        - nRF52840 (Cortex-M4)
+        - nRF5340 (Cortex-M33)
+        - LPCXpresso55S69 (Cortex-M33)
+        - STM32MP2 (Cortex-M33)
+    risc-v:
+        - RV64IMAC E51
+        - RV64GC U54
+        - MicroBlaze V
   buildSystems:
     - Make
     - CMake
@@ -179,27 +179,30 @@ achievements:
   - "Successfully launched the Disquiet CoLab official website."
 # 5. Hobbies and Interests (Now in Frontmatter)
 hobbies:
-  - Scuba Diving 🤿
+  - Scuba Diving
   - Trekking
-  - Camping 🏕️
-  - Hiking ⛰️
+  - Camping
+  - Hiking
 interests:
-  - Writing (Technical & Creative) ✍️
-  - Analog Photography 📷
-  - Vinyl Collection 🎶
+  - Writing (Technical & Creative)
+  - Analog Photography
+  - Vinyl Collection
+
+# 6. NEW ABOUT ME SECTION
+aboutMe: |
+  I'm an Electronics Engineer with focus in Embedded Systems and Power Electronics.
+  
+  It's rare for me to make a decision without confirming what was already done before, by the engineers that prepared the world we live in at the moment: right now one brain isn't enough for all the complexity expected in cyber-physical systems, so I do research beforehand, whenever there's information.
+  
+  I've been working with Arm MCUs (STM32 - mostly Cortex-M4 and Cortex-M7, Nordic nRF52840, and the Cortex-M33 with trustzone capabilities from NXP) using either mbed OS (mostly with Keil RTX RTOS profile), the HAL given by the vendors, or the open-source library libopncm3.
+  
+  I've also used FreeRTOS for personal projects (but I need to improve that experience to focus on Amazon IoT stack). I'm also actively testing the new world that appeared in front of my eyes that is Zephyr. For an engineer that uses Yocto it's amazing to generate development environments seamlessly for both worlds.
+  
+  I can also say with confidence that I can create custom Linux-based systems for ARM Cortex-A devices using Yocto and buildroot, and that includes AMD Xilinx Zynq SoCs (that's my main development board for personal projects), Atmel chips, and Altera Stratix SoCs.
+  
+  I'm also venturing in Android custom ROM development using AOSP and, after absorbing the knowledge needed to be fully independent (HAL and kernel), Lineage OS somewhere in the not-so-distant future.
+  
+  At the moment, I'm focused in the usage of neural networks and openvino framework, inside of Microchip’s Polarfore SoC, that incorporates RISCV64 cores interfaced with the FPGA area, using a custom buildroot sdk that includes modules to access CNN vector processors, that accelerate all the most used CNN networks and framework’s available.
+  
+  All I can say is that nothing is impossible if I have the time to read the documentation.
 ---
-I'm an Electronics Engineer with focus in Embedded Systems and Power Electronics.
-
-It's rare for me to make a decision without confirming what was already done before, by the engineers that prepared the world we live in at the moment: right now one brain isn't enough for all the complexity expected in cyber-physical systems, so I do research beforehand, whenever there's information.
-
-I've been working with Arm MCUs (STM32 - mostly Cortex-M4 and Cortex-M7, Nordic nRF52840, and the Cortex-M33 with trustzone capabilities from NXP) using either mbed OS (mostly with Keil RTX RTOS profile), the HAL given by the vendors, or the open-source library libopncm3.
-
-I've also used FreeRTOS for personal projects (but I need to improve that experience to focus on Amazon IoT stack). I'm also actively testing the new world that appeared in front of my eyes that is Zephyr. For an engineer that uses Yocto it's amazing to generate development environments seamlessly for both worlds.
-
-I can also say with confidence that I can create custom Linux-based systems for ARM Cortex-A devices using Yocto and buildroot, and that includes AMD Xilinx Zynq SoCs (that's my main development board for personal projects), Atmel chips, and Altera Stratix SoCs.
-
-I'm also venturing in Android custom ROM development using AOSP and, after absorbing the knowledge needed to be fully independent (HAL and kernel), Lineage OS somewhere in the not-so-distant future.
-
-At the moment, I'm focused in the usage of neural networks and openvino framework, inside of Microchip’s Polarfore SoC, that incorporates RISCV64 cores interfaced with the FPGA area, using a custom buildroot sdk that includes modules to access CNN vector processors, that accelerate all the most used CNN networks and framework’s available.
-
-All I can say is that nothing is impossible if I have the time to read the documentation.
