@@ -112,7 +112,19 @@ experiences:
   - role: "Lead Developer & Founder"
     company: "Disquiet CoLab"
     period: "January 2023 - Present"
-    description: "Leading the technical development and strategic vision for innovative Embedded Systems projects."
+    description:
+      - "Helping companies build connected, secure and integrated IoT products, by providing expertise in wireless, embedded and cloud development."
+      - "Leading the technical development and strategic vision for innovative Embedded Systems projects."
+      - "Conducting comprehensive penetration tests on IoT ecosystems, including hardware, firmware, communication protocols (BLE, Zigbee, MQTT), mobile applications, and cloud APIs."
+      - "Employing hardware hacking techniques (JTAG, UART, SPI) to interface with device internals, extract firmware, and identify physical vulnerabilities."
+      - "Performing firmware reverse engineering to discover hardcoded credentials, insecure data storage, and exploitable software flaws."
+      - "Developing and implementing security solutions for resource-constrained embedded systems to protect against remote exploits and physical tampering."
+      - "Designing and testing countermeasures against hardware attacks, including side-channel analysis (SCA) and fault injection (FI)."
+      - "Integrating secure boot mechanisms and Trusted Execution Environments to ensure firmware integrity and protect critical hardware and data."
+      - "Architecting and securing robust over-the-air (OTA) update mechanisms to deploy patches and mitigate vulnerabilities on fielded devices."
+      - "Developing and deploying machine learning models directly on edge devices for on-device inference."
+      - "Optimizing complex neural networks using techniques like quantization and pruning to run efficiently on resource-constrained hardware."
+      - "Leveraging Edge ML to build low-latency, low-bandwidth, and privacy-preserving solutions for real-time applications like object detection and predictive maintenance."
     location: "Braga, Portugal"
   - role: "Embedded System Engineer"
     company: "KCS IT (EFACEC)"
@@ -125,45 +137,44 @@ experiences:
   - role: "Embedded Systems Research Engineer"
     company: "Vortex CoLab"
     period: "June 2023 - June 2024"
-    description: 
-     - "Used Buildroot and Yocto to create custom Linux distributions for a RISC‑V SoC for Microchip’s Icicle Kit."
-     - "Developed a user space application in C and C++ to control a matrix processor, responsible for running Machine Learning algorithms, from all the most popular frameworks, like TensorFlow, PyTorch, and ONNX."
-     - "The main focus of the project was to develop an inference application that would be able to run on the matrix processor, and to be able to receive data from multiple sources, like cameras, sensors, and other devices."
-     - "The application could run as a standalone application inside a docker container, running inside the RISC‑V SoC, or as a client/server application, where the server would be running on the RISC‑V SoC, and the client would be running on a PC."
-     - "The client application was developed in Python, and was responsible for sending the image data to the server, and to receive the artifacts from the server, merging them into a single image, and displaying it to the user."
+    description:
+      - "Created custom Linux distributions for a Microchip RISC-V SoC (Icicle Kit) using Buildroot and Yocto."
+      - "Developed a C/C++ user-space application to control a matrix processor for running ML algorithms from frameworks like TensorFlow, PyTorch, and ONNX."
+      - "Engineered an inference application for the matrix processor, designed to aggregate and process data from multiple sources, including cameras and sensors."
+      - "Architected the application to run either as a standalone Docker container on the RISC-V SoC or as a client/server application."
+      - "Developed the Python-based client application to send image data to the server, receive processed artifacts, and display the merged results."
     location: "Porto, Portugal"
   - role: "Embedded Systems Engineer"
     company: "ispace Inc."
     period: "September 2022 - May 2023"
     description:
-      - "This was a position with a lot of responsibilities, ranging from Embedded Software development and FPGA design to Embedded Linux and Kernel drivers development."
-      - "As an Embedded Linux Engineer at ispace‑inc, I was responsible for generating firmware for a Xilinx Zynq‑7000 development board. To achieve this, I utilized several key tools and technologies, including Yocto, U‑Boot, and the latest version of the Linux kernel. I also implemented the real‑time patch for the Linux kernel, similar to the one used on NASA’s Perseverance rover."
-      - "My responsibilities included developing all kernel drivers to manage USB cameras, IIC sensors, and SPI sensors. This involved designing, developing, and testing the drivers to ensure they were fully functional and met project requirements. Another key focus was the development of the flight software for the project. For this task, I used the C programming language and integrated image processing libraries from Xilinx to be included on the FPGA, ensuring the flight software was fully optimized and met performance specifications."
-      - "To manage the development process, I used GitLab to track changes and collaborate with team members. Additionally, I employed CI/CD with GitLab to automate the build and test process, ensuring the software was always up to date and met quality standards."
-      - "Overall, my role at ispace‑inc was crucial to the project’s constant change requests. By leveraging my expertise in key tools and technologies and focusing on FPGA development, kernel development, driver development, and flight software development, I contributed to the project’s evaluation phases by ESA, and helped ensure it met the required specifications."
+      - "Managed responsibilities across Embedded Software, FPGA design, Embedded Linux, and Kernel driver development."
+      - "Generated firmware for Xilinx Zynq-7000 boards using Yocto, U-Boot, and the latest Linux kernel."
+      - "Implemented the real-time (PREEMPT_RT) patch for the Linux kernel."
+      - "Designed, developed, and tested kernel drivers for interfacing with USB cameras, I2C sensors, and SPI sensors."
+      - "Developed flight software in C, integrating Xilinx image processing libraries for FPGA optimization and performance."
+      - "Utilized GitLab for version control and implemented CI/CD pipelines to automate build and test processes."
+      - "Contributed to successful project evaluation phases by the European Space Agency (ESA) through expertise in FPGA, kernel, and flight software development."
     location: "Luxembourg, Luxembourg"
   - role: "Embedded Systems Engineer and Tester"
     company: "DSR Corporation"
     period: "August 2018 - August 2022"
     description:
-      - "This position was a mix between Embedded Software development and Software tester."
-      - "During this work placement, I served as an Embedded Software Engineer on the Embedded Systems team, where we were responsible for the certification of a commercial hard real‑time operating system, developed for safety and security‑critical applications."
-      - "These applications spanned various fields, including Aerospace and Defense, Automotive and Transportation, Industrial Automation and Medical, Network Infrastructures, and Consumer Electronics."
-      - "The core concept of this RTOS was its ability to safely execute applications with different safety levels concurrently on the same platform. This was achieved by hosting one or more applications inside Virtual Machines, each with specific memory, CPU time, and I/O access rights. These applications ranged from simple control loops to complete paravirtualized guest operating systems like Linux. Essentially, this RTOS functioned as a Type 1 Hypervisor."
-      - "The project required Continuous Integration development to ensure that all software requirements for the Hypervisor were completely satisfied during runtime testing of the RTOS. This involved correctly configuring the necessary Virtual Machines, Device Drivers, and Communication systems."
-      - "My responsibilities included developing and testing the software, ensuring it met the required specifications and standards. I also worked on the development of the software architecture, ensuring it was scalable and maintainable."
-      - "The successful development of the certification work packages relied on several key aspects, including C language development, Linux Host development, and the use of tools such as qemu, gcc, gdb, make, and bash. We used Jira for issue reporting and task tracking, and GitLab for version control and code review. A Test Framework was utilized for all certification tests, which included automated tests, unit tests, and hardware‑in‑loop tests."
-      - "Additionally, we used SVN for document and planning documentation, and IBM Rational DOORS for requirement creation and traceability. Python and bash were employed for workload automation."
-      - "Overall, my role at DSR Corp was crucial to the project’s success. By leveraging my expertise in key tools and technologies and focusing on software development and testing, I contributed to the project’s evaluation phases by the certification authority, and helped ensure it met the required specifications."
+      - "Contributed to the certification of a commercial, safety-critical hard real-time operating system (RTOS) / Type 1 Hypervisor for applications in Aerospace, Defense, Automotive, and Medical fields."
+      - "Developed and tested embedded software to ensure strict adherence to project specifications, certification standards, and software requirements."
+      - "Implemented Continuous Integration (CI) development and runtime testing for the Hypervisor, configuring Virtual Machines (VMs), device drivers, and communication systems."
+      - "Authored and executed automated tests, unit tests, and hardware-in-the-loop (HIL) tests using a dedicated Test Framework."
+      - "Utilized C, Python, and Bash for software development and workload automation on a Linux host environment."
+      - "Managed development lifecycle using GitLab (version control, code review) and Jira (issue/task tracking)."
+      - "Maintained requirement traceability and documentation using IBM Rational DOORS and SVN."
+      - "Gained hands-on experience with key development tools including QEMU, GCC, GDB, and Make."
     location: "Porto, Portugal"
   - role: "Embedded Systems Engineer"
     company: "Altice Labs"
     period: "January 2018 - August 2018"
     description:
-      - "This was a freelancer position."
-      - "I was responsible for developing a custom Linux Kernel driver for a PCIe device, that was used by an application responsible with the flow controls of a fiber optic network."
-      - "The driver was developed in C and was responsible for the communication between the PCIe device and the user space application."
-      - "The Device Driver was for a PCI‑express interface between a Cortex‑A53 processor and the FPGA area present in the development board."
+      - "Engineered a custom Linux Kernel driver in C to manage the PCI-express interface between an ARM Cortex-A53 processor and an FPGA."
+      - "Enabled high-speed communication between the PCIe device and a user-space application responsible for managing fiber optic network flow control."
     location: "Aveiro, Portugal"
   - role: "Embedded Systems Engineer"
     company: "CTAG (Renault-Nissan)"
@@ -177,6 +188,7 @@ experiences:
 # 4. Achievements (Simple List)
 achievements:
   - "Successfully launched the Disquiet CoLab official website."
+  - "Successfully led the complete research and development lifecycle of a Radio-Frequency (RF) Jammer."
 # 5. Hobbies and Interests (Now in Frontmatter)
 hobbies:
   - Scuba Diving
@@ -190,19 +202,13 @@ interests:
 
 # 6. NEW ABOUT ME SECTION
 aboutMe: |
-  I'm an Electronics Engineer with focus in Embedded Systems and Power Electronics.
-  
-  It's rare for me to make a decision without confirming what was already done before, by the engineers that prepared the world we live in at the moment: right now one brain isn't enough for all the complexity expected in cyber-physical systems, so I do research beforehand, whenever there's information.
-  
-  I've been working with Arm MCUs (STM32 - mostly Cortex-M4 and Cortex-M7, Nordic nRF52840, and the Cortex-M33 with trustzone capabilities from NXP) using either mbed OS (mostly with Keil RTX RTOS profile), the HAL given by the vendors, or the open-source library libopncm3.
-  
-  I've also used FreeRTOS for personal projects (but I need to improve that experience to focus on Amazon IoT stack). I'm also actively testing the new world that appeared in front of my eyes that is Zephyr. For an engineer that uses Yocto it's amazing to generate development environments seamlessly for both worlds.
-  
-  I can also say with confidence that I can create custom Linux-based systems for ARM Cortex-A devices using Yocto and buildroot, and that includes AMD Xilinx Zynq SoCs (that's my main development board for personal projects), Atmel chips, and Altera Stratix SoCs.
-  
-  I'm also venturing in Android custom ROM development using AOSP and, after absorbing the knowledge needed to be fully independent (HAL and kernel), Lineage OS somewhere in the not-so-distant future.
-  
-  At the moment, I'm focused in the usage of neural networks and openvino framework, inside of Microchip’s Polarfore SoC, that incorporates RISCV64 cores interfaced with the FPGA area, using a custom buildroot sdk that includes modules to access CNN vector processors, that accelerate all the most used CNN networks and framework’s available.
-  
-  All I can say is that nothing is impossible if I have the time to read the documentation.
+  As an Electronics Engineer specializing in Embedded Systems and Power Electronics, I heavily prioritize research, believing that complex modern systems require building upon existing knowledge.
+
+  My experience spans both microcontrollers and high-level embedded Linux. I'm proficient with Arm Cortex-M MCUs (like STM32, Nordic, and NXP) using mbed OS, vendor HALs, and FreeRTOS, and I am currently exploring Zephyr.
+
+  I am also confident in creating custom Linux systems using Yocto and Buildroot for Arm Cortex-A devices, including Xilinx Zynq and Altera SoCs. My interests are expanding into Android (AOSP) development, with a goal of mastering Lineage OS.
+
+  Currently, my focus is on implementing neural networks using OpenVINO on Microchip PolarFire RISC-V SoCs, utilizing their built-in FPGA and CNN accelerators. I operate on the principle that nothing is impossible given the time to read the documentation.
+
+  Nothing is impossible, if I have the time to read the documentation.
 ---
