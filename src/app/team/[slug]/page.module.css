@@ -8,7 +8,7 @@
 
     /* --- GREY SCHEME --- */
     background-color: #f3f4f6; /* Light grey background */
-    padding: 1rem 1rem 3rem 1rem; /* Adjust padding as needed */
+    padding: 2rem 2rem 3rem 1rem; /* Adjust padding as needed */
 }
 
 /* Specific styles for dark mode if needed */
@@ -22,6 +22,10 @@
 .contentWrapper {
     max-width: 896px; /* max-w-4xl */
     width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #e2e8f0;
+    margin: 0 auto;
+    padding: 2rem;
 }
 
 .memberHeader {

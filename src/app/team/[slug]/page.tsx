@@ -73,7 +73,6 @@ export default async function TeamMemberPage({ params }: Props) {
     return (
         <div className={styles.pageContainer}>
             <div className={styles.contentWrapper}>
-
                 {/* === MEMBER HEADER (Unchanged) === */}
                 <div className={styles.memberHeader}>
                     <div className={styles.avatar}>
@@ -97,88 +96,99 @@ export default async function TeamMemberPage({ params }: Props) {
 
                 {/* --- About Me (Unchanged) --- */}
                 {contentHtml && contentHtml.trim() !== '' && (
-                    <section>
-                        <h2 className="text-3xl font-bold border-b pb-2 mb-6 dark:text-white">About Me</h2>
-                        <div
-                            className="prose dark:prose-invert max-w-none"
-                            dangerouslySetInnerHTML={{ __html: contentHtml }}
-                        />
-                    </section>
+                    <div className={styles.memberHeader}>
+                        <section>
+                            <h2 className="text-3xl font-bold border-b pb-2 mb-6 dark:text-white">About Me</h2>
+                            <div
+                                className="prose dark:prose-invert max-w-none"
+                                dangerouslySetInnerHTML={{ __html: contentHtml }}
+                            />
+                        </section>
+                    </div>
                 )}
 
                 {/* --- Skills Section (Unchanged) --- */}
                 {hasAnySkills && data.skills && (
-                    <section>
-                        <h2 className="text-3xl font-bold border-b pb-2 mb-6 dark:text-white">Skills</h2>
-                        <div className="flex flex-wrap gap-4">
-                            <RecursiveSkillsRenderer data={data.skills} />
-                        </div>
-                    </section>
+                    <div className={styles.memberHeader}>
+                        <section>
+                            <h2 className="text-3xl font-bold border-b pb-2 mb-6 dark:text-white">Skills</h2>
+                            <div className="flex flex-wrap gap-4">
+                                <RecursiveSkillsRenderer data={data.skills} />
+                            </div>
+                        </section>
+                    </div>
                 )}
 
                 {/* --- Professional Experience Section (FIXED LOGIC) --- */}
                 {data.experiences && data.experiences.length > 0 && (
-                    <section>
-                        <h2 className="text-3xl font-bold border-b pb-2 mb-6 dark:text-white">Experience</h2>
-                        <div className="space-y-8">
-                            {data.experiences.map((exp, index) => {
-                                // FIX: Ensure description is always an array before mapping
-                                const descriptionList = Array.isArray(exp.description)
-                                    ? exp.description
-                                    // If it's a string (from old markdown format), put it in an array
-                                    : typeof exp.description === 'string'
-                                        ? [exp.description]
-                                        : [];
+                    <div className={styles.memberHeader}>
+                        <section>
+                            <h2 className="text-3xl font-bold border-b pb-2 mb-6 dark:text-white">Experience</h2>
+                            <div className="space-y-8">
+                                {data.experiences.map((exp, index) => {
+                                    // FIX: Ensure description is always an array before mapping
+                                    const descriptionList = Array.isArray(exp.description)
+                                        ? exp.description
+                                        // If it's a string (from old markdown format), put it in an array
+                                        : typeof exp.description === 'string'
+                                            ? [exp.description]
+                                            : [];
 
-                                return (
-                                    <div key={index} className="border-l-4 border-blue-500 pl-4">
-                                        <h3 className="text-xl font-semibold dark:text-white">{exp.role}</h3>
-                                        <p className="font-medium text-gray-800 dark:text-gray-200">{exp.company} {exp.location && <span className="text-gray-500 dark:text-gray-400">({exp.location})</span>}</p>
-                                        <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">{exp.period}</p>
+                                    return (
+                                        <div key={index} className="border-l-4 border-blue-500 pl-4">
+                                            <h3 className="text-xl font-semibold dark:text-white">{exp.role}</h3>
+                                            <p className="font-medium text-gray-800 dark:text-gray-200">{exp.company} {exp.location && <span className="text-gray-500 dark:text-gray-400">({exp.location})</span>}</p>
+                                            <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">{exp.period}</p>
 
-                                        {/* Renders the list */}
-                                        {descriptionList.length > 0 && (
-                                            <ul className="list-disc ml-5 text-gray-700 dark:text-gray-300 space-y-1">
-                                                {descriptionList.map((item, i) => (
-                                                    <li key={i}>{item}</li>
-                                                ))}
-                                            </ul>
-                                        )}
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    </section>
+                                            {/* Renders the list */}
+                                            {descriptionList.length > 0 && (
+                                                <ul className="list-disc ml-5 text-gray-700 dark:text-gray-300 space-y-1">
+                                                    {descriptionList.map((item, i) => (
+                                                        <li key={i}>{item}</li>
+                                                    ))}
+                                                </ul>
+                                            )}
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </section>
+                    </div>
                 )}
 
                 {/* --- Achievements Section (Unchanged) --- */}
                 {data.achievements && data.achievements.length > 0 && (
-                    <section>
-                        <h2 className="text-3xl font-bold border-b pb-2 mb-6 dark:text-white">Achievements</h2>
-                        <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
-                            {data.achievements.map((ach, index) => <li key={index}>{ach}</li>)}
-                        </ul>
-                    </section>
+                    <div className={styles.memberHeader}>
+                        <section>
+                            <h2 className="text-3xl font-bold border-b pb-2 mb-6 dark:text-white">Achievements</h2>
+                            <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
+                                {data.achievements.map((ach, index) => <li key={index}>{ach}</li>)}
+                            </ul>
+                        </section>
+                    </div>
                 )}
 
                 {/* --- Hobbies & Interests Sections (Unchanged) --- */}
                 {data.hobbies && data.hobbies.length > 0 && (
-                    <section>
-                        <h2 className="text-3xl font-bold border-b pb-2 mb-6 dark:text-white">Hobbies</h2>
-                        <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
-                            {data.hobbies.map((hobby, index) => <li key={index}>{hobby}</li>)}
-                        </ul>
-                    </section>
+                    <div className={styles.memberHeader}>
+                        <section>
+                            <h2 className="text-3xl font-bold border-b pb-2 mb-6 dark:text-white">Hobbies</h2>
+                            <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
+                                {data.hobbies.map((hobby, index) => <li key={index}>{hobby}</li>)}
+                            </ul>
+                        </section>
+                    </div>
                 )}
                 {data.interests && data.interests.length > 0 && (
-                    <section>
-                        <h2 className="text-3xl font-bold border-b pb-2 mb-6 dark:text-white">Interests</h2>
-                        <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
-                            {data.interests.map((interest, index) => <li key={index}>{interest}</li>)}
-                        </ul>
-                    </section>
+                    <div className={styles.memberHeader}>
+                        <section>
+                            <h2 className="text-3xl font-bold border-b pb-2 mb-6 dark:text-white">Interests</h2>
+                            <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
+                                {data.interests.map((interest, index) => <li key={index}>{interest}</li>)}
+                            </ul>
+                        </section>
+                    </div>
                 )}
-
             </div>
         </div>
     );
