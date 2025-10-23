@@ -1,4 +1,5 @@
 import { getMarkdownContent } from '@/lib/markdown';
+import styles from './page.module.css'; // 1. Import our new CSS Module
 
 type Props = {
     params: { slug: string }

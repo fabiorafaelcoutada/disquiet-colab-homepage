@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { getAllPosts } from '@/lib/markdown';
+import styles from './page.module.css'; // 1. Import our new CSS Module
 
 export default function BlogIndex() {
     const allPosts = getAllPosts();
