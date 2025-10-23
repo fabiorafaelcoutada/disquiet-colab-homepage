@@ -1,10 +1,13 @@
+// --- NEW: Acronym List (Unchanged) ---
+export const ACADEMIC_ACRONYMS = [
+    'fpga', 'rtos', 'hdl', 'fpga', 'ai/ml', 'risc-v', 'devops', 'arm-cortex-a', 'arm-cortex-m', 'tsn',
+    'i2c', 'spi', 'uart', 'mqtt', 'pcie', 'plc', 'bsp', 'ci/cd', 'pcb'
+];
+
 /** The final list of skills (e.g., ['C', 'C++']) */
 export type SkillList = string[];
 
-/** * A recursive type allowing nested objects for categories.
- * Keys are category names (e.g., 'programmingLanguages', 'lowLevel').
- * Values can be either a SkillList or another nested SkillCategory.
- */
+/** * A recursive type allowing nested objects for categories. */
 export type SkillCategory = {
     [key: string]: SkillList | SkillCategory;
 };
@@ -23,18 +26,17 @@ export type TeamMemberLinks = {
     twitter?: string;
 };
 
-// 1. TeamMemberSkills is now replaced by SkillCategory for flexibility
-// export type TeamMemberSkills = { ... }; // <-- REMOVED/REPLACED
-
+// 1. MODIFIED TYPE HERE
 export type TeamMemberExperience = {
     role: string;
     company: string;
     period: string;
-    description: string;
+    // --- CHANGED FROM 'string' TO 'string[]' ---
+    description: string[];
     location?: string;
 };
 
-// This is the overall type for the frontmatter 'data' object
+// This is the overall type for the frontmatter 'data' object (Unchanged)
 export type TeamMemberFrontmatter = {
     slug: string;
     firstName: string;
@@ -44,10 +46,7 @@ export type TeamMemberFrontmatter = {
     dateOfBirth?: string;
     contact?: TeamMemberContact;
     links?: TeamMemberLinks;
-
-    // 2. Updated to use the recursive type
     skills?: SkillCategory;
-
     experiences?: TeamMemberExperience[];
     achievements?: string[];
     hobbies?: string[];
