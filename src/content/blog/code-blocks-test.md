@@ -2,6 +2,7 @@
 title: 'Testing Code Blocks'
 date: '2025-10-21'
 description: 'Displaying syntax-highlighted code for C, Python, and Java.'
+author: 'fabio-cunha'
 ---
 
 This post tests syntax highlighting for different languages.
