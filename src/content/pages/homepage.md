@@ -1,61 +1,32 @@
 ---
-title: 'Markdown Feature Test'
-subtitle: 'Testing all the things remark and tailwind typography can do.'
+# 1. Hero/Introduction Section
+title: 'Driving Digital Innovation in Embedded Systems'
+subtitle: 'We turn complex hardware and software challenges into secure, real-time solutions.'
+buttonText: 'Explore Our Expertise'
+buttonLink: '/whatwedo/technologies'
+
+# 2. Key Specialties/Features (Will be rendered as a grid of cards)
+specialties:
+  - title: "Real-Time OS & Linux"
+    icon: "chip"
+    description: "Deep expertise in Yocto, Buildroot, and RTOS like FreeRTOS and Zephyr for maximum performance and determinism."
+  - title: "AI/ML Acceleration"
+    icon: "brain"
+    description: "Integrating TensorFlow and PyTorch with specialized hardware (FPGAs/Matrix Processors) for high-speed inference at the edge."
+  - title: "Secure Communication (TSN)"
+    icon: "lock"
+    description: "Implementing Time-Sensitive Networking (TSN) and robust security protocols for industrial and automotive reliability."
+  - title: "DevOps & Toolchains"
+    icon: "code"
+    description: "Mastery of modern build systems (Bazel, CMake) and full CI/CD pipelines (GitLab/GitHub Actions) for reliable releases."
+
+# 3. Vision/Secondary Content Block
+visionTitle: "The Future is Interconnected, Secure, and Real-Time"
+visionCopy: "Our vision is simple: empower the physical world with trustworthy digital intelligence. We provide the foundational technologies required to bridge the gap between low-level hardware constraints and high-level cloud services."
+
+# 4. NEW: Final Call to Action Block (Structured for button/text)
+ctaTitle: "Ready to Discuss Your Next Project?"
+ctaSubtitle: "We thrive on non-negotiable challenges in embedded systems, AI, and cybersecurity. Contact us to learn how we can help."
+ctaButtonText: "Get in Touch"
+ctaButtonLink: "/contact"
 ---
-
-# Heading 1
-This is the main heading.
-
-## Heading 2
-This is a secondary heading.
-
-### Heading 3
-This is a sub-section.
-
-#### Heading 4
-For deeper nesting.
-
-##### Heading 5
-Even deeper.
-
-###### Heading 6
-The deepest heading.
-
----
-
-## Text Formatting
-
-Here is some standard paragraph text. It should wrap normally and have good line spacing.
-
-You can make text **bold**, *italic*, or ***bold and italic***. You can also ~~strikethrough~~ text.
-
-For inline code, you can wrap it in backticks, like `const variable = "hello";`.
-
-## Blockquotes
-
-> "This is a blockquote. It's often used for quoting people. It should be indented and styled differently."
->
-> > This is a nested blockquote.
-
-## Lists
-
-### Unordered List
-* Item 1
-* Item 2
-    * Nested item 2a
-    * Nested item 2b
-* Item 3
-
-### Ordered List
-1.  First item
-2.  Second item
-3.  Third item
-    1.  Nested item 3a
-    2.  Nested item 3b
-
-### Task List (Checklist)
-* [x] Completed task
-* [ ] Incomplete task
-
----
-
