@@ -3,9 +3,9 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
-import { mainNavItems, rightNavItems } from '../config/navigation';
-import { NavLink } from '../config/navigation-types';
-import { HiMenu, HiX, HiChevronDown } from 'react-icons/hi'; // 1. Added Chevron icon
+import { mainNavItems } from '@/config/navigation';
+import { NavLink } from '@/config/navigation-types';
+import { HiMenu, HiX, HiChevronDown } from 'react-icons/hi';
 
 // MobileMenuLink component (unchanged)
 function MobileMenuLink({ item, onClick }: { item: NavLink, onClick: () => void }) {
@@ -27,22 +27,19 @@ function MobileMenuLink({ item, onClick }: { item: NavLink, onClick: () => void 
 
 export function MobileHeader() {
     const [isOpen, setIsOpen] = useState(false);
-
-    // 2. NEW STATE: Tracks which internal dropdown is open
     const [openSubMenu, setOpenSubMenu] = useState<string | null>(null);
 
     const closeMenu = () => {
         setIsOpen(false);
-        setOpenSubMenu(null); // Also reset sub-menus when closing
+        setOpenSubMenu(null);
     };
 
-    // 3. NEW HANDLER: Toggles the sub-menus
     const toggleSubMenu = (label: string) => {
         setOpenSubMenu(openSubMenu === label ? null : label);
     };
 
     return (
-        <header className="bg-white dark:bg-gray-900 shadow-md relative z-20"> {/* Added z-20 */}
+        <header className="bg-white dark:bg-gray-900 shadow-md relative z-20">
             <nav className="container mx-auto px-6 py-3">
                 <div className="flex items-center justify-between">
                     {/* Logo */}
@@ -71,9 +68,9 @@ export function MobileHeader() {
 
                 {/* Vertical Mobile Menu */}
                 {isOpen && (
-                    // 4. Added max-h-screen and overflow-y-auto for very long menus
                     <div className="absolute top-full left-0 w-full bg-white dark:bg-gray-900 shadow-lg py-4 px-6 space-y-4 max-h-[calc(100vh-80px)] overflow-y-auto">
-                        {/* Main Nav Items */}
+
+                        {/* Main Nav Items (The primary purpose of the menu) */}
                         {mainNavItems.map((item) => {
 
                             // Case 1: Simple link
@@ -81,7 +78,7 @@ export function MobileHeader() {
                                 return <MobileMenuLink key={item.label} item={item as NavLink} onClick={closeMenu} />;
                             }
 
-                            // 5. MODIFIED: This is now a collapsible button
+                            // Case 2: Dropdown/Collapsible button
                             if (item.children) {
                                 const isSubMenuOpen = openSubMenu === item.label;
                                 return (
@@ -97,7 +94,7 @@ export function MobileHeader() {
                                             />
                                         </button>
 
-                                        {/* 6. Conditionally render the sub-menu */}
+                                        {/* Conditionally render the sub-menu */}
                                         {isSubMenuOpen && (
                                             <div className="flex flex-col space-y-2 pl-4 pt-2">
                                                 {item.children.map((child) => (
@@ -111,13 +108,9 @@ export function MobileHeader() {
                             return null;
                         })}
 
-                        {/* Separator */}
-                        <hr className="border-gray-200 dark:border-gray-700" />
-
-                        {/* Right Nav Items (Contact, etc) */}
-                        {rightNavItems.map((item) => (
-                            <MobileMenuLink key={item.href} item={item as NavLink} onClick={closeMenu} />
-                        ))}
+                        {/* ❌ REMOVED: The Separator and the mapping of rightNavItems
+                           are gone, as requested.
+                        */}
                     </div>
                 )}
             </nav>
