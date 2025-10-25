@@ -3,60 +3,63 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 
-// --- FIX: DECLARE GLOBAL VARIABLE FOR TYPESCRIPT ---
-// This tells TypeScript that `dataLayer` exists as an array on the global window object.
+// Define the precise type structure for the dataLayer object
+type DataLayerEvent = {
+    [key: string]: any; // Use a broad Record type for event properties
+    event?: string;
+    analytics_storage?: 'granted' | 'denied';
+    ad_storage?: 'granted' | 'denied';
+};
+
+// --- FIX 1: Use the custom type to remove 'any' from the global declaration ---
 declare global {
     interface Window {
-        dataLayer: Record<string, any>[];
+        dataLayer: DataLayerEvent[];
     }
 }
+// --------------------------------------------------------------------------
 
 export default function CookieConsentBanner() {
-    // State to manage whether the banner is visible
     const [isVisible, setIsVisible] = useState(false);
+
+    // FIX 2: Use the custom type for the function parameter
+    const pushToDataLayer = (data: DataLayerEvent) => {
+        // Use standard window check
+        if (typeof window !== 'undefined' && window['dataLayer']) {
+            window['dataLayer'].push(data);
+        }
+    };
 
     // Helper function to push the consent status to the data layer
     const applyConsentStatus = useCallback((choice: 'accepted' | 'declined') => {
         const consentState = choice === 'accepted' ? 'granted' : 'denied';
 
-        // Check if dataLayer exists (runtime check)
-        if (typeof window.dataLayer !== 'undefined') {
-            window.dataLayer.push({
-                'analytics_storage': consentState,
-                'ad_storage': consentState,
-            });
+        pushToDataLayer({
+            'analytics_storage': consentState,
+            'ad_storage': consentState,
+        });
 
-            // If granted, send the event signal (useful for GTM triggers)
-            if (choice === 'accepted') {
-                window.dataLayer.push({ 'event': 'cookie_consent_granted' });
-            }
+        if (choice === 'accepted') {
+            pushToDataLayer({ 'event': 'cookie_consent_granted' });
         }
     }, []);
 
 
-    // --- EFFECT 1: Check Local Storage and Apply Status ---
+    // --- EFFECT 1: Check Local Storage and Apply Status (Unchanged) ---
     useEffect(() => {
         const consent = localStorage.getItem('cookieConsent');
-
         if (consent === null) {
-            // No choice made yet, show the banner
             setIsVisible(true);
         } else {
-            // Choice found. Apply the saved status immediately on page load.
             applyConsentStatus(consent as 'accepted' | 'declined');
         }
     }, [applyConsentStatus]);
 
 
-    // --- User Interaction Handler ---
+    // --- User Interaction Handler (Unchanged) ---
     const handleConsent = (choice: 'accepted' | 'declined') => {
-        // 1. Save the user's choice to local storage
         localStorage.setItem('cookieConsent', choice);
-
-        // 2. Hide the banner
         setIsVisible(false);
-
-        // 3. Apply status to dataLayer
         applyConsentStatus(choice);
     };
 
@@ -67,8 +70,6 @@ export default function CookieConsentBanner() {
     return (
         <div className="fixed inset-x-0 bottom-0 z-50 bg-gray-900 dark:bg-gray-700 text-white p-4 shadow-2xl">
             <div className="container mx-auto flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
-
-                {/* Text and Link */}
                 <p className="text-sm md:text-base">
                     We use cookies to bring you a personalized experience.
                     <br className="block md:hidden"/>
@@ -77,8 +78,6 @@ export default function CookieConsentBanner() {
                         Cookie Policy
                     </Link>
                 </p>
-
-                {/* Buttons */}
                 <div className="flex space-x-3 flex-shrink-0">
                     <button
                         onClick={() => handleConsent('declined')}
