@@ -29,7 +29,6 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        // FIX: Add suppressHydrationWarning to the <html> tag
         <html lang="en" suppressHydrationWarning>
         <head>
             <title>{metadata.title as string}</title>
