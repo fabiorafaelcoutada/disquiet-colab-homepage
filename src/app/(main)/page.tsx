@@ -1,4 +1,3 @@
-// Only import your new function!
 import { getMarkdownContent } from '@/lib/markdown';
 
 export default async function Home() {
