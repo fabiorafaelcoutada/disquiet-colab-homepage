@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import { mainNavItems, rightNavItems } from '@/config/navigation';
+import { mainNavItems, rightNavItems, resourceLinks } from '../config/navigation';
 import { HiOutlineMail } from 'react-icons/hi'; // Icon for Contact
 
-// Helper function to get social icon SVGs (reused logic from DesktopHeader/Footer)
+// Helper function to get social icon SVGs (unchanged)
 const getSocialIcon = (label: string) => {
     const commonClasses = "h-6 w-6";
     switch (label) {
@@ -22,11 +22,10 @@ export function MobileFooter() {
     const contactLink = rightNavItems.find(item => item.href === '/contact');
 
     return (
-        // Only displayed on mobile (md:hidden). Uses the same dark colors.
         <footer className="bg-gray-800 dark:bg-black text-gray-300 dark:text-gray-400 p-6 md:hidden">
             <div className="container mx-auto">
 
-                {/* SECTION 1: Company Info and Social Links */}
+                {/* SECTION 1: Company Info and Social Links (Unchanged) */}
                 <div className="border-b border-gray-700 pb-6 mb-6 space-y-4">
                     <h3 className="text-xl font-bold text-white">Disquiet CoLab</h3>
                     <p className="text-sm">Driving innovation in embedded systems, AI, and secure connectivity.</p>
@@ -54,8 +53,9 @@ export function MobileFooter() {
                     </div>
                 </div>
 
-                {/* SECTION 2: Navigation Links (Stacked Lists) */}
-                <div className="grid grid-cols-2 gap-x-8 gap-y-6">
+                {/* SECTION 2: Navigation Links (FIXED: Stacks all categories cleanly) */}
+                {/* Removed grid-cols-2 to force a single-column stack */}
+                <div className="space-y-6">
 
                     {/* COLUMN A: Company / Main */}
                     <div>
@@ -85,9 +85,23 @@ export function MobileFooter() {
                         </ul>
                     </div>
 
+                    {/* NEW COLUMN C: Resources / Legal */}
+                    <div>
+                        <h4 className="text-lg font-semibold mb-3 text-white">Resources</h4>
+                        <ul className="space-y-3">
+                            {resourceLinks.map((item) => (
+                                <li key={item.href}>
+                                    <Link href={item.href} className="text-sm hover:text-white transition duration-200">
+                                        {item.label}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
                 </div>
 
-                {/* BOTTOM BAR: Copyright and Credit */}
+                {/* BOTTOM BAR: Copyright and Credit (Unchanged) */}
                 <div className="text-center text-xs pt-8 mt-6 border-t border-gray-700">
                     <p>&copy; {new Date().getFullYear()} Disquiet CoLab. All rights reserved.</p>
                     <p className="mt-2 text-gray-500">Crafted by <Link href="/team/fabio-cunha" className="text-blue-400 hover:underline">Fábio Cunha</Link></p>

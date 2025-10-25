@@ -1,13 +1,9 @@
 import Link from 'next/link';
 // Assuming these imports are correct for your configuration
-import { mainNavItems, rightNavItems } from '@/config/navigation';
+import { mainNavItems, rightNavItems, resourceLinks } from '@/config/navigation';
+import { NavItem } from '@/config/navigation-types';
 
-// Helper function to extract social links and general links
-const socialLinks = rightNavItems.filter(item => item.isExternal);
-const primaryLinks = mainNavItems.filter(item => !item.children);
-const whatWeDoLinks = mainNavItems.find(item => item.label === 'What We Do')?.children || [];
-
-// Helper function to get social icon SVGs (reused from Header/MobileFooter)
+// Helper function to get social icon SVGs (unchanged)
 const getSocialIcon = (label: string) => {
     const commonClasses = "h-6 w-6";
     switch (label) {
@@ -21,6 +17,14 @@ const getSocialIcon = (label: string) => {
 };
 
 export function DesktopFooter() {
+
+    // 1. Define variables INSIDE the function for reliable access
+    // We add a safety check (|| []) just in case the imported array is null/undefined
+    const socialLinks = (rightNavItems || []).filter(item => item.isExternal);
+    const primaryLinks = (mainNavItems || []).filter(item => !item.children);
+    const whatWeDoLinks = (mainNavItems || []).find(item => item.label === 'What We Do')?.children || [];
+    // The main fix is here: ensuring resourceLinks is treated as an array
+    const legalResourceLinks = resourceLinks || [];
 
     return (
         // Use rich, dark colors consistent with your CTA section
@@ -79,14 +83,17 @@ export function DesktopFooter() {
                         </ul>
                     </div>
 
-                    {/* COLUMN 4: Legal/Resources */}
+                    {/* COLUMN 4: Resources/Legal (NOW DYNAMIC) */}
                     <div>
                         <h4 className="text-lg font-semibold mb-4 text-white">Resources</h4>
                         <ul className="space-y-3">
-                            <li><Link href="/blog" className="text-sm hover:text-white transition duration-200">Blog</Link></li>
-                            <li><Link href="/news" className="text-sm hover:text-white transition duration-200">News</Link></li>
-                            <li><Link href="/contact" className="text-sm hover:text-white transition duration-200">Contact</Link></li>
-                            <li><Link href="/legal" className="text-sm hover:text-white transition duration-200">Privacy Policy</Link></li>
+                            {legalResourceLinks.map((item) => (
+                                <li key={item.href}>
+                                    <Link href={item.href} className="text-sm hover:text-white transition duration-200">
+                                        {item.label}
+                                    </Link>
+                                </li>
+                            ))}
                         </ul>
                     </div>
 
