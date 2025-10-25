@@ -19,7 +19,7 @@ export const mainNavItems: NavItem[] = [
             { label: 'Technologies', href: '/whatwedo/technologies' },
             { label: 'Industries We Serve', href: '/whatwedo/industries' },
             // To add more, just add a new object here:
-            // { label: 'Our Services', href: '/whatwedo/services' },
+            { label: 'Our Services', href: '/whatwedo/services' },
         ],
     },
     { label: 'Team', href: '/team' },
