@@ -1,35 +1,63 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+
+// --- FIX: DECLARE GLOBAL VARIABLE FOR TYPESCRIPT ---
+// This tells TypeScript that `dataLayer` exists as an array on the global window object.
+declare global {
+    interface Window {
+        dataLayer: Record<string, any>[];
+    }
+}
 
 export default function CookieConsentBanner() {
     // State to manage whether the banner is visible
     const [isVisible, setIsVisible] = useState(false);
 
-    useEffect(() => {
-        // 1. Check if the user has already made a choice
-        const consent = localStorage.getItem('cookieConsent');
+    // Helper function to push the consent status to the data layer
+    const applyConsentStatus = useCallback((choice: 'accepted' | 'declined') => {
+        const consentState = choice === 'accepted' ? 'granted' : 'denied';
 
-        // If consent is NOT found, show the banner
-        if (consent === null) {
-            setIsVisible(true);
+        // Check if dataLayer exists (runtime check)
+        if (typeof window.dataLayer !== 'undefined') {
+            window.dataLayer.push({
+                'analytics_storage': consentState,
+                'ad_storage': consentState,
+            });
+
+            // If granted, send the event signal (useful for GTM triggers)
+            if (choice === 'accepted') {
+                window.dataLayer.push({ 'event': 'cookie_consent_granted' });
+            }
         }
     }, []);
 
-    // Function to handle the user's choice
+
+    // --- EFFECT 1: Check Local Storage and Apply Status ---
+    useEffect(() => {
+        const consent = localStorage.getItem('cookieConsent');
+
+        if (consent === null) {
+            // No choice made yet, show the banner
+            setIsVisible(true);
+        } else {
+            // Choice found. Apply the saved status immediately on page load.
+            applyConsentStatus(consent as 'accepted' | 'declined');
+        }
+    }, [applyConsentStatus]);
+
+
+    // --- User Interaction Handler ---
     const handleConsent = (choice: 'accepted' | 'declined') => {
-        // 2. Save the user's choice to local storage
+        // 1. Save the user's choice to local storage
         localStorage.setItem('cookieConsent', choice);
 
-        // 3. Hide the banner
+        // 2. Hide the banner
         setIsVisible(false);
 
-        // Optionally, if 'accepted', you would initialize tracking scripts here:
-        // if (choice === 'accepted') {
-        //   console.log("Cookies accepted. Initializing Google Analytics...");
-        //   // window.dataLayer.push({ 'event': 'cookie_consent_granted' });
-        // }
+        // 3. Apply status to dataLayer
+        applyConsentStatus(choice);
     };
 
     if (!isVisible) {
@@ -37,7 +65,6 @@ export default function CookieConsentBanner() {
     }
 
     return (
-        // Fixed position at the bottom for maximum visibility
         <div className="fixed inset-x-0 bottom-0 z-50 bg-gray-900 dark:bg-gray-700 text-white p-4 shadow-2xl">
             <div className="container mx-auto flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
 
