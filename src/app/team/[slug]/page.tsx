@@ -43,7 +43,7 @@ function RecursiveSkillsRenderer({ data }: { data: SkillCategory | SkillList }) 
                             border dark:border-gray-700 rounded-lg
                             break-inside-avoid-column
                             space-y-2
-                            w-full md:w-auto md:flex-grow
+                            w-full md:w-auto md:grow
                         `}
                     >
                         <h3 className="text-xl font-semibold mb-2 capitalize text-gray-900 dark:text-white">
