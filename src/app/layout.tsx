@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-// NOTE: Assuming your import path for Header/Footer is correct relative to layout.tsx (../components vs @/components)
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from 'next/script';
 import "./globals.css";
@@ -9,13 +8,12 @@ import CookieConsentBanner from '@/components/CookieConsentBanner';
 
 const GTM_ID = "GTM-MH6VNMPJ";
 
-// FIX: Correcting the Geist_Mono font constructor usage.
 const geistSans = Geist({
     variable: "--font-geist-sans",
     subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({ // <-- CORRECTED CONSTRUCTOR
+const geistMono = Geist_Mono({
     variable: "--font-geist-mono",
     subsets: ["latin"],
 });
@@ -31,9 +29,9 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
+        // FIX: Add suppressHydrationWarning to the <html> tag
+        <html lang="en" suppressHydrationWarning>
         <head>
-            {/* Title and description handled by Next.js <Head> wrapper if needed, but direct meta tags work too. */}
             <title>{metadata.title as string}</title>
             <meta name="description" content={metadata.description as string} />
 
@@ -45,14 +43,12 @@ export default function RootLayout({
                         window.dataLayer = window.dataLayer || [];
                         function gtag(){dataLayer.push(arguments);}
                         
-                        // Set consent to 'denied' by default (required for GDPR compliance)
                         gtag('consent', 'default', {
                             'ad_storage': 'denied',
                             'analytics_storage': 'denied',
                             'wait_for_update': 500
                         });
                         
-                        // Push an event to fire GTM as soon as the consent status is defined
                         dataLayer.push({'event': 'default_consent_set'}); 
                     `,
                 }}
@@ -74,7 +70,6 @@ export default function RootLayout({
             />
         </head>
         <body
-            // Applying both font variables via className
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
         {/* GTM Noscript Part */}
