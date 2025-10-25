@@ -1,7 +1,5 @@
 import Link from 'next/link';
-// Assuming these imports are correct for your configuration
-import { mainNavItems, rightNavItems } from '../config/navigation';
-import { NavItem } from '../config/navigation-types';
+import { mainNavItems, rightNavItems } from '@/config/navigation';
 import { HiOutlineMail } from 'react-icons/hi'; // Icon for Contact
 
 // Helper function to get social icon SVGs (reused logic from DesktopHeader/Footer)

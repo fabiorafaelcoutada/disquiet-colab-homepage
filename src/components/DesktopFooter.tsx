@@ -1,7 +1,6 @@
 import Link from 'next/link';
 // Assuming these imports are correct for your configuration
-import { mainNavItems, rightNavItems } from '../config/navigation';
-import { NavItem } from '../config/navigation-types';
+import { mainNavItems, rightNavItems } from '@/config/navigation';
 
 // Helper function to extract social links and general links
 const socialLinks = rightNavItems.filter(item => item.isExternal);
