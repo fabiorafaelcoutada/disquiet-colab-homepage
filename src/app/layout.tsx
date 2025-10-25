@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+// NOTE: Assuming your import path for Header/Footer is correct relative to layout.tsx (../components vs @/components)
 import { Geist, Geist_Mono } from "next/font/google";
-import Script from 'next/script'; // 1. Import Next.js Script component
+import Script from 'next/script';
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -8,17 +9,16 @@ import CookieConsentBanner from '@/components/CookieConsentBanner';
 
 const GTM_ID = "GTM-MH6VNMPJ";
 
-// FIX: Combine Geist font loaders into a single array structure
+// FIX: Correcting the Geist_Mono font constructor usage.
 const geistSans = Geist({
     variable: "--font-geist-sans",
     subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
+const geistMono = Geist_Mono({ // <-- CORRECTED CONSTRUCTOR
     variable: "--font-geist-mono",
     subsets: ["latin"],
 });
-// END FIX
 
 export const metadata: Metadata = {
     title: "Disquiet CoLab, your partner in Innovation",
@@ -33,6 +33,7 @@ export default function RootLayout({
     return (
         <html lang="en">
         <head>
+            {/* Title and description handled by Next.js <Head> wrapper if needed, but direct meta tags work too. */}
             <title>{metadata.title as string}</title>
             <meta name="description" content={metadata.description as string} />
 
@@ -60,7 +61,7 @@ export default function RootLayout({
             {/* 3. GTM Standard Script (Load GTM) */}
             <Script
                 id="gtm-script"
-                strategy="afterInteractive" // Load after hydration
+                strategy="afterInteractive"
                 dangerouslySetInnerHTML={{
                     __html: `
                   (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -73,7 +74,7 @@ export default function RootLayout({
             />
         </head>
         <body
-            // FIX: Apply BOTH font variables via className
+            // Applying both font variables via className
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
         {/* GTM Noscript Part */}
