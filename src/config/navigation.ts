@@ -44,8 +44,6 @@ export const rightNavItems: NavItem[] = [
  */
 export const resourceLinks: NavLink[] = [
     // Note: We use NavLink[] here because these are simple leaf links.
-    { label: 'Blog', href: '/blog' },
-    { label: 'News', href: '/news' },
     { label: 'Contact', href: '/contact' },
     { label: 'Privacy Policy', href: '/legal/privacy-policy' },
     { label: 'Cookie Policy', href: '/legal/cookie-policy' },
