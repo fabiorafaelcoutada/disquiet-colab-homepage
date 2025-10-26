@@ -11,7 +11,13 @@ import rehypeStringify from 'rehype-stringify';
 
 const contentDirectory = path.join(process.cwd(), 'src', 'content');
 const blogContentDir = path.join(contentDirectory, 'blog');
-const teamContentDir = path.join(contentDirectory, 'team'); // <-- 1. ADD THIS LINE
+const teamContentDir = path.join(contentDirectory, 'team');
+const newsContentDir = path.join(contentDirectory, 'news');
+
+// Helper to convert frontmatter data safely
+const castToFrontmatter = (data: matter.GrayMatterFile<string>['data']) => {
+    return data as Record<string, any>;
+};
 
 /**
  * Gets the content and metadata for a single .md file.
@@ -37,7 +43,7 @@ export async function getMarkdownContent(filePath: string) {
 
     return {
         contentHtml,
-        data, // This is your frontmatter (title, date, etc.)
+        data: castToFrontmatter(data), // Pass the full, casted data object
     };
 }
 
@@ -103,4 +109,26 @@ export function getAllTeamMembers() {
 
     // Sort members by last name
     return allMembersData.sort((a, b) => a.lastName.localeCompare(b.lastName));
+}
+
+/**
+ * NEW: Gets sorted frontmatter for all News entries.
+ */
+export function getAllNews() {
+    const fileNames = fs.readdirSync(newsContentDir);
+
+    const allNewsData = fileNames.map((fileName) => {
+        const slug = fileName.replace(/\.md$/, '');
+        const fullPath = path.join(newsContentDir, fileName);
+        const fileContents = fs.readFileSync(fullPath, 'utf8');
+        const matterResult = matter(fileContents);
+        return {
+            slug,
+            // Include all standard fields needed for a news card preview
+            ...(matterResult.data as { title: string; date: string; description: string; source: string }),
+        };
+    });
+
+    // Sort news by date (newest first)
+    return allNewsData.sort((a, b) => (a.date < b.date ? 1 : -1));
 }
