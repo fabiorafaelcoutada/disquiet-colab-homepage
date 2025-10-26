@@ -5,6 +5,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CookieConsentBanner from '@/components/CookieConsentBanner';
+import { ScrollToTopButton } from '@/components/ScrollToTopButton';
 
 const GTM_ID = "GTM-MH6VNMPJ";
 
@@ -88,6 +89,9 @@ export default function RootLayout({
         <Footer />
 
         <CookieConsentBanner />
+
+        {/* 2. INTEGRATE THE SCROLL BUTTON */}
+        <ScrollToTopButton />
         </body>
         </html>
     );
