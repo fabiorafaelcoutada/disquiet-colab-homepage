@@ -9,8 +9,8 @@ export default function ContactPage() {
         title: "Get in Touch",
         subtitle: "We're here to help you solve complex embedded systems challenges. Reach out directly using the information below.",
         email: "contact@disquiet-colab.com",
-        phone: "+351 937 991 354",
-        address: "Rua do Mirante, 3, 4750-704, Braga, Portugal",
+        phone: "+351 XXX XXX XXX",
+        address: "Braga, Portugal",
         introCopy: "Our team specializes in complex embedded software, AI acceleration, and deterministic networking (TSN), and we strive to respond to all technical inquiries within one business day."
     };
 
@@ -30,7 +30,7 @@ export default function ContactPage() {
 
                     {/* Render the introductory copy */}
                     <div className="prose dark:prose-invert max-w-none">
-                        <h2 className="text-2xl font-semibold dark:text-white">We're Here to Help 🤝</h2>
+                        <h2 className="text-2xl font-semibold dark:text-white">We're Here to Help</h2>
                         <p>{contactData.introCopy}</p>
                     </div>
                 </div>
