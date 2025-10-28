@@ -10,6 +10,7 @@ import rehypeKatex from 'rehype-katex';
 import rehypeStringify from 'rehype-stringify';
 import rehypeSlug from 'rehype-slug';
 import rehypeHighlight from 'rehype-highlight';
+import rehypeRaw from 'rehype-raw';
 
 const contentDirectory = path.join(process.cwd(), 'src', 'content');
 const blogContentDir = path.join(contentDirectory, 'blog');
@@ -29,7 +30,10 @@ async function processMarkdownToHtml(markdownContent: string): Promise<string> {
         .use(remarkParse)
         .use(remarkGfm)
         .use(remarkMath)
-        .use(remarkRehype)
+        //.use(remarkRehype)
+        .use(remarkRehype, { allowDangerousHtml: true })
+        // 3. ADD rehype-raw to parse the raw HTML nodes
+        .use(rehypeRaw)
         .use(rehypeSlug)
         .use(rehypeHighlight)
         .use(rehypeKatex)
