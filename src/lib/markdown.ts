@@ -5,9 +5,12 @@ import { remark } from 'remark';
 import remarkGfm from 'remark-gfm';
 import remarkParse from 'remark-parse';
 import remarkMath from 'remark-math';
+import remarkSlug from 'remark-slug';
 import remarkRehype from 'remark-rehype';
 import rehypeKatex from 'rehype-katex';
 import rehypeStringify from 'rehype-stringify';
+import rehypeSlug from 'rehype-slug';
+import rehypeHighlight from 'rehype-highlight';
 
 const contentDirectory = path.join(process.cwd(), 'src', 'content');
 const blogContentDir = path.join(contentDirectory, 'blog');
@@ -20,30 +23,37 @@ const castToFrontmatter = (data: matter.GrayMatterFile<string>['data']) => {
 };
 
 /**
+ * Processes raw markdown content into HTML with math and syntax highlighting support.
+ */
+async function processMarkdownToHtml(markdownContent: string): Promise<string> {
+    const processedContent = await remark()
+        .use(remarkParse)
+        .use(remarkGfm)
+        .use(remarkSlug)
+        .use(remarkMath)
+        .use(remarkRehype)
+        .use(rehypeSlug)
+        .use(rehypeHighlight)
+        .use(rehypeKatex)
+        .use(rehypeStringify)
+        .process(markdownContent);
+
+    return processedContent.toString();
+}
+
+/**
  * Gets the content and metadata for a single .md file.
- * (This function is unchanged)
  */
 export async function getMarkdownContent(filePath: string) {
     const fullPath = path.join(contentDirectory, `${filePath}.md`);
     const fileContents = fs.readFileSync(fullPath, 'utf8');
+    const {data, content} = matter(fileContents);
 
-    const { data, content } = matter(fileContents);
-
-    // Process markdown with math plugins
-    const processedContent = await remark()
-        .use(remarkParse)
-        .use(remarkGfm)
-        .use(remarkMath)
-        .use(remarkRehype)
-        .use(rehypeKatex)
-        .use(rehypeStringify)
-        .process(content);
-
-    const contentHtml = processedContent.toString();
+    const contentHtml = await processMarkdownToHtml(content);
 
     return {
         contentHtml,
-        data: castToFrontmatter(data), // Pass the full, casted data object
+        data: castToFrontmatter(data),
     };
 }
 
