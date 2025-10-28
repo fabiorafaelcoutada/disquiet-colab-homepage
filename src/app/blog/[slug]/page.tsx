@@ -63,10 +63,13 @@ export default async function BlogPost({ params }: Props) {
                 </header>
 
                 {/* Post Content */}
-                <div
-                    className="prose prose-lg dark:prose-invert max-w-none"
-                    dangerouslySetInnerHTML={{ __html: contentHtml }}
-                />
+                {/* Apply the wrapper class from the CSS Module */}
+                <div className={styles.blogContentWrapper}>
+                    <div
+                        className="prose prose-lg dark:prose-invert max-w-none"
+                        dangerouslySetInnerHTML={{ __html: contentHtml }}
+                    />
+                </div>
             </article>
         </div>
     );
