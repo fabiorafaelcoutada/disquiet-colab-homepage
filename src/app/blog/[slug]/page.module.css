@@ -1,0 +1,55 @@
+/* Styles specifically for the blog post content area */
+
+:root {
+    --inline-code-bg-light: #e5e7eb;
+    --inline-code-text-light: #1f2937;
+    --inline-code-bg-dark: #374151;
+    --inline-code-text-dark: #f3f4f6;
+    --inline-code-padding: 0.2em 0.4em;
+    --inline-code-border-radius: 0.375rem;
+    --inline-code-font-size: 0.875em;
+    --inline-code-font-weight: 500;
+}
+
+/* Inline <code> styling */
+.blogContentWrapper :global(code):not(:global(pre code)) {
+    background-color: var(--inline-code-bg-light) !important;
+    color: var(--inline-code-text-light) !important;
+    padding: var(--inline-code-padding) !important;
+    border-radius: var(--inline-code-border-radius) !important;
+    font-size: var(--inline-code-font-size) !important;
+    font-weight: var(--inline-code-font-weight) !important;
+    white-space: nowrap !important;
+}
+
+/* Dark mode override for inline code */
+:global(html.dark) .blogContentWrapper :global(code):not(:global(pre code)) {
+    background-color: var(--inline-code-bg-dark) !important;
+    color: var(--inline-code-text-dark) !important;
+}
+
+/* Code block <pre> styling reset */
+.blogContentWrapper :global(pre) {
+    position: relative;
+    counter-reset: line;
+    /* padding-left: 3.5em;*/ /* Keep commented out if using CSS line numbers */
+    /* Keep existing margin overrides if necessary */
+    margin-top: 1.6em !important;
+    margin-bottom: 1.6em !important;
+}
+
+/* Code block <code> styling reset - allows highlight.js theme colors */
+.blogContentWrapper :global(pre code) {
+    background-color: transparent !important;
+    color: inherit !important;
+    font-size: inherit !important;
+    padding: 1em !important;
+    font-weight: inherit !important;
+    border: none !important;
+}
+
+/* Disable prose quotes around code */
+.blogContentWrapper :global(code)::before,
+.blogContentWrapper :global(code)::after {
+    content: none !important;
+}
