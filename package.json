@@ -26,8 +26,7 @@
     "remark-html": "^16.0.1",
     "remark-math": "^6.0.0",
     "remark-parse": "^11.0.0",
-    "remark-rehype": "^11.1.2",
-    "remark-slug": "^7.0.1"
+    "remark-rehype": "^11.1.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

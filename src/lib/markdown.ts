@@ -5,7 +5,6 @@ import { remark } from 'remark';
 import remarkGfm from 'remark-gfm';
 import remarkParse from 'remark-parse';
 import remarkMath from 'remark-math';
-import remarkSlug from 'remark-slug';
 import remarkRehype from 'remark-rehype';
 import rehypeKatex from 'rehype-katex';
 import rehypeStringify from 'rehype-stringify';
@@ -29,7 +28,6 @@ async function processMarkdownToHtml(markdownContent: string): Promise<string> {
     const processedContent = await remark()
         .use(remarkParse)
         .use(remarkGfm)
-        .use(remarkSlug)
         .use(remarkMath)
         .use(remarkRehype)
         .use(rehypeSlug)
