@@ -11,14 +11,6 @@ type DataLayerEvent = {
     ad_storage?: 'granted' | 'denied';
 };
 
-// --- FIX 1: Use the custom type to remove 'any' from the global declaration ---
-declare global {
-    interface Window {
-        dataLayer: DataLayerEvent[];
-    }
-}
-// --------------------------------------------------------------------------
-
 export default function CookieConsentBanner() {
     const [isVisible, setIsVisible] = useState(false);
 
